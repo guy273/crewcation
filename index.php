@@ -183,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="login-logo">
         <div class="crown"><svg viewBox="0 0 100 100" width="64" height="64" aria-hidden="true"><defs><linearGradient id="lcg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD966"/><stop offset="0.5" stop-color="#D4A017"/><stop offset="1" stop-color="#9A7414"/></linearGradient></defs><path fill="url(#lcg)" d="M18 70 L14 34 L32 48 L50 22 L68 48 L86 34 L82 70 Z"/><rect x="18" y="72" width="64" height="9" rx="2" fill="url(#lcg)"/><circle cx="14" cy="32" r="5" fill="#FFD966"/><circle cx="50" cy="20" r="5.5" fill="#FFD966"/><circle cx="86" cy="32" r="5" fill="#FFD966"/></svg></div>
         <h1><?= htmlspecialchars(APP_NAME) ?></h1>
-        <p>אם לא תשלח איך תיקח?</p>
+        <p>הטיול מתחיל כאן</p>
     </div>
     <div class="login-card">
         <?php if ($error): ?>

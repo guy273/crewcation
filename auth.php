@@ -64,13 +64,51 @@ function member_photo(string $uid): string {
 function get_db(): PDO {
     static $db = null;
     if ($db === null) {
+        $dir = dirname(DB_PATH);
+        if (!is_dir($dir)) @mkdir($dir, 0775, true);
         $db = new PDO('sqlite:' . DB_PATH);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         $db->exec("PRAGMA journal_mode=WAL;");
         $db->exec("PRAGMA foreign_keys=ON;");
+        ensure_schema($db);
     }
     return $db;
+}
+
+// יוצר את טבלאות הבסיס אם חסרות - כך שכל התקנה חדשה עובדת בלי צעד ידני.
+function ensure_schema(PDO $db): void {
+    $db->exec("CREATE TABLE IF NOT EXISTS places (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, day INTEGER NOT NULL,
+        meal TEXT NOT NULL CHECK(meal IN ('lunch','dinner')),
+        name TEXT NOT NULL, description TEXT, url TEXT, user_id TEXT
+    )");
+    $db->exec("CREATE TABLE IF NOT EXISTS votes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, day INTEGER NOT NULL,
+        meal TEXT NOT NULL CHECK(meal IN ('lunch','dinner')),
+        place_id INTEGER NOT NULL, user_id TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP, UNIQUE(day, meal, user_id)
+    )");
+    $db->exec("CREATE TABLE IF NOT EXISTS uploads (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, day INTEGER NOT NULL, user_id TEXT NOT NULL,
+        filename TEXT NOT NULL, type TEXT NOT NULL CHECK(type IN ('image','video')),
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )");
+    $db->exec("CREATE TABLE IF NOT EXISTS blessings (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, day INTEGER NOT NULL, user_id TEXT NOT NULL,
+        content TEXT NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP, UNIQUE(day, user_id)
+    )");
+    $db->exec("CREATE TABLE IF NOT EXISTS ratings (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, day INTEGER NOT NULL,
+        rater_id TEXT NOT NULL, ratee_id TEXT NOT NULL,
+        stars INTEGER NOT NULL CHECK(stars BETWEEN 1 AND 5),
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP, UNIQUE(day, rater_id, ratee_id)
+    )");
+    $db->exec("CREATE TABLE IF NOT EXISTS suggestions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, user_id TEXT NOT NULL,
+        name TEXT NOT NULL, url TEXT, note TEXT, og_image TEXT, og_site TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )");
 }
 
 function json_response(mixed $data, int $status = 200): never {
