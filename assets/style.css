@@ -106,6 +106,20 @@
 .theme-dot.t-purple { background: radial-gradient(circle at 35% 30%, #D9BBFA, #A76CE9); }
 .theme-dot.t-sky    { background: radial-gradient(circle at 35% 30%, #A6E2F2, #38B6DE); }
 
+/* מודל "אני רק דמו" */
+.demo-modal { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center;
+    background: rgba(4,4,8,0.72); backdrop-filter: blur(6px); padding: 24px; }
+.demo-modal.show { display: flex; animation: dm-fade .18s ease; }
+@keyframes dm-fade { from { opacity: 0; } to { opacity: 1; } }
+.demo-modal-card { background: var(--bg-elevated); border: 1px solid var(--border-gold); border-radius: var(--radius-xl);
+    padding: 26px 24px; max-width: 320px; text-align: center; box-shadow: var(--glow-gold); animation: dm-pop .22s cubic-bezier(.2,.8,.2,1); }
+@keyframes dm-pop { from { transform: scale(.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.demo-modal-card .dm-emoji { font-size: 2.4rem; }
+.demo-modal-card .dm-title { font-size: 1.25rem; font-weight: 800; margin: 8px 0 6px; color: var(--gold-light); }
+.demo-modal-card .dm-sub { font-size: .92rem; color: var(--text); opacity: .85; line-height: 1.6; margin: 0 0 18px; }
+.demo-modal-card .dm-btn { background: var(--grad-gold); color: #1a1505; border: 0; border-radius: var(--radius-pill);
+    padding: 11px 30px; font-weight: 700; font-size: .95rem; cursor: pointer; font-family: inherit; }
+
 /* מצב דמו: מסתירים כפתורי העלאת תמונות (חסום גם בשרת) */
 body.is-demo #hypeAdd,
 body.is-demo [id^="gal-add-"],

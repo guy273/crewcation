@@ -36,20 +36,25 @@ declare(strict_types=1);
             flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(300px, 420px) 1fr;
             gap: clamp(28px, 5vw, 72px); align-items: center; max-width: 1200px; width: 100%; margin: 0 auto;
         }
-        .pg-stage { display: flex; flex-direction: column; align-items: center; gap: 18px; min-height: 0; height: 100%; justify-content: center; }
+        .pg-stage { display: flex; flex-direction: column; align-items: center; gap: 26px; min-height: 0; height: 100%; justify-content: center; }
 
         /* מוקאפ טלפון - רחב ככל שמתאפשר בגובה הזמין */
         .phone {
-            height: min(86%, 760px); aspect-ratio: 390 / 844; position: relative;
-            background: #050507; border-radius: 50px; padding: 11px;
-            box-shadow: 0 36px 80px rgba(0,0,0,.7), 0 0 0 2px #1c1c24, 0 0 0 11px #0c0c11, 0 0 0 13px #24242e;
+            height: min(880px, calc(100vh - 250px)); aspect-ratio: 390 / 844; position: relative;
+            background: #050507; border-radius: 52px; padding: 12px;
+            box-shadow: 0 36px 80px rgba(0,0,0,.7), 0 0 0 2px #1c1c24, 0 0 0 12px #0c0c11, 0 0 0 14px #24242e;
         }
-        .phone::before { content: ''; position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
-            width: 112px; height: 25px; background: #050507; border-radius: 16px; z-index: 3; }
-        .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 40px; background: #06060a; display: block; }
+        .phone::before { content: ''; position: absolute; top: 17px; left: 50%; transform: translateX(-50%);
+            width: 118px; height: 26px; background: #050507; border-radius: 16px; z-index: 3; }
+        .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 42px; background: #06060a; display: block; }
 
-        /* נקודות הצבע - מתחת לדמו */
-        .swatches { display: flex; gap: 14px; }
+        /* בקרות מתחת לדמו */
+        .stage-controls { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+        .phase-toggle { display: inline-flex; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 4px; gap: 4px; }
+        .phase-btn { border: 0; background: transparent; color: var(--text-muted); font-family: inherit; font-weight: 600;
+            font-size: .9rem; padding: 8px 18px; border-radius: var(--radius-pill); cursor: pointer; transition: all .15s; white-space: nowrap; }
+        .phase-btn.active { background: var(--grad-gold); color: #1a1505; }
+        .swatches { display: flex; gap: 16px; }
 
         /* פאנל - בשפת המוצר */
         .pg-panel { display: flex; flex-direction: column; gap: 18px; }
@@ -143,13 +148,19 @@ declare(strict_types=1);
 
             <div class="pg-stage">
                 <div class="phone">
-                    <iframe id="appFrame" src="app.php" title="<?= htmlspecialchars(APP_NAME) ?>"></iframe>
+                    <iframe id="appFrame" src="app.php?phase=before" title="<?= htmlspecialchars(APP_NAME) ?>"></iframe>
                 </div>
-                <div class="swatches" id="themePicker">
-                    <button class="theme-dot t-gold active"   data-theme="gold"   aria-label="זהב"></button>
-                    <button class="theme-dot t-pink"          data-theme="pink"   aria-label="ורוד"></button>
-                    <button class="theme-dot t-purple"        data-theme="purple" aria-label="סגול"></button>
-                    <button class="theme-dot t-sky"           data-theme="sky"    aria-label="תכלת"></button>
+                <div class="stage-controls">
+                    <div class="phase-toggle" id="phaseToggle">
+                        <button class="phase-btn active" data-phase="before" type="button">לפני הטיסה</button>
+                        <button class="phase-btn" data-phase="during" type="button">במהלך הטיול</button>
+                    </div>
+                    <div class="swatches" id="themePicker">
+                        <button class="theme-dot t-gold active"   data-theme="gold"   aria-label="זהב"></button>
+                        <button class="theme-dot t-pink"          data-theme="pink"   aria-label="ורוד"></button>
+                        <button class="theme-dot t-purple"        data-theme="purple" aria-label="סגול"></button>
+                        <button class="theme-dot t-sky"           data-theme="sky"    aria-label="תכלת"></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -188,6 +199,15 @@ declare(strict_types=1);
             paintFrame(localStorage.getItem('cw-theme') || 'gold');
         });
         pick.addEventListener('click', function (e) { var d = e.target.closest('.theme-dot'); if (d) apply(d.dataset.theme); });
+
+        // מתג שלב: לפני הטיסה / במהלך הטיול - טוען מחדש את האייפריים
+        var toggle = document.getElementById('phaseToggle');
+        toggle.addEventListener('click', function (e) {
+            var b = e.target.closest('.phase-btn');
+            if (!b) return;
+            toggle.querySelectorAll('.phase-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
+            frame.src = 'app.php?phase=' + b.dataset.phase;
+        });
 
         // אקורדיון בלעדי - פתיחת אחד סוגרת את השאר (גיבוי ל-name)
         var accs = document.querySelectorAll('.panel-card details');

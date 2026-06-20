@@ -190,5 +190,6 @@ if (!empty($m['is_groom'])) {
 })();
 </script>
 <script src="assets/profile.js?v=<?= filemtime(__DIR__ . '/assets/profile.js') ?>"></script>
+<?php include __DIR__ . '/demo_guard.php'; ?>
 </body>
 </html>

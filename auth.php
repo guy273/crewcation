@@ -27,6 +27,42 @@ function uploads_blocked(): bool {
     return demo_mode();
 }
 
+// בדמו: מתג שלב (לפני הטיסה / במהלך הטיול) דרך ?phase או ?simday, נשמר בסשן.
+// מחזיר את "יום הטיול" המדומה: 0 = לפני, 3 = במהלך. null אם לא בדמו.
+function demo_sim_day(): ?int {
+    if (!demo_mode()) return null;
+    if (isset($_GET['phase'])) {
+        $_SESSION['demo_phase'] = ($_GET['phase'] === 'during') ? 'during' : 'before';
+    } elseif (isset($_GET['simday'])) {
+        $_SESSION['demo_phase'] = ((int)$_GET['simday'] > 0) ? 'during' : 'before';
+    }
+    return (($_SESSION['demo_phase'] ?? 'before') === 'during') ? 3 : 0;
+}
+
+// זריעת דאטה להדגמה (מקומות + תמונות גלריה) כדי שמצב "במהלך הטיול" ייראה חי. רץ פעם אחת.
+function demo_seed(PDO $db): void {
+    if (!demo_mode()) return;
+    $users = array_keys(USERS);
+    if ((int)$db->query("SELECT COUNT(*) FROM places")->fetchColumn() === 0) {
+        $samples = [
+            [1,'lunch','קפה יווני בפלאקה'], [1,'lunch','שוק האוכל המרכזי'],
+            [1,'dinner','מסעדת גריל בגג'],  [1,'dinner','בר יין ליד הים'],
+            [2,'lunch','חוף ושנירקול'],      [2,'lunch','פיתה גירוס אגדית'],
+            [2,'dinner','טברנה מקומית'],     [2,'dinner','מועדון על הגג'],
+            [3,'lunch','בריכת המלון'],       [3,'lunch','סושי טוב'],
+            [3,'dinner','סטייקייה'],         [3,'dinner','מסיבת חוף'],
+        ];
+        $ins = $db->prepare("INSERT INTO places (day,meal,name,description,url,added_by) VALUES (?,?,?,'','https://www.google.com/maps',?)");
+        foreach ($samples as $i => $s) $ins->execute([$s[0], $s[1], $s[2], $users[$i % count($users)]]);
+    }
+    if ((int)$db->query("SELECT COUNT(*) FROM uploads")->fetchColumn() === 0) {
+        $ins = $db->prepare("INSERT INTO uploads (day,user_id,filename,type) VALUES (3,?,?,'image')");
+        foreach (['gal1.jpg','gal2.jpg','gal3.jpg','gal4.jpg'] as $i => $f) {
+            if (file_exists(UPLOAD_PATH . $f)) $ins->execute([$users[$i % count($users)], $f]);
+        }
+    }
+}
+
 function require_login(): string {
     session_start_safe();
     $uid = $_SESSION['user_id'] ?? '';
@@ -92,6 +128,7 @@ function get_db(): PDO {
         $db->exec("PRAGMA journal_mode=WAL;");
         $db->exec("PRAGMA foreign_keys=ON;");
         ensure_schema($db);
+        demo_seed($db);
     }
     return $db;
 }
@@ -120,9 +157,9 @@ function ensure_schema(PDO $db): void {
     )");
     $db->exec("CREATE TABLE IF NOT EXISTS ratings (
         id INTEGER PRIMARY KEY AUTOINCREMENT, day INTEGER NOT NULL,
-        rater_id TEXT NOT NULL, ratee_id TEXT NOT NULL,
+        rater_id TEXT NOT NULL, ratee_id TEXT NOT NULL, param TEXT NOT NULL,
         stars INTEGER NOT NULL CHECK(stars BETWEEN 1 AND 5),
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP, UNIQUE(day, rater_id, ratee_id)
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP, UNIQUE(day, rater_id, ratee_id, param)
     )");
     $db->exec("CREATE TABLE IF NOT EXISTS suggestions (
         id INTEGER PRIMARY KEY AUTOINCREMENT, user_id TEXT NOT NULL,

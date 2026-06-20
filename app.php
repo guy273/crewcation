@@ -29,6 +29,8 @@ if ($tripDayNow < 0) $tripDayNow = 0;
 // ?simday=N מדמה יום אחר (למשל simday=1 = בוקר השחרור)
 if (is_dev_env()) {
     $tripDayNow = isset($_GET['simday']) ? max(0, min(5, (int)$_GET['simday'])) : 3;
+} elseif (($dsd = demo_sim_day()) !== null) {
+    $tripDayNow = $dsd; // דמו: 0 = לפני הטיסה, 3 = במהלך הטיול
 }
 // מצב איסוף: לפני הטיול - ממלאים מקומות, בלי הצבעה ובלי נעילות עבר/עתיד.
 $collectionMode = collection_mode($tripDayNow);
@@ -1854,5 +1856,6 @@ if ('serviceWorker' in navigator) {
 if (window.caches) { caches.keys().then(ks => ks.forEach(k => caches.delete(k))); }
 </script>
 <script src="assets/profile.js?v=<?= filemtime(__DIR__ . '/assets/profile.js') ?>"></script>
+<?php include __DIR__ . '/demo_guard.php'; ?>
 </body>
 </html>

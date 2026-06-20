@@ -6,7 +6,7 @@ require_once __DIR__ . '/icons.php';
 
 $user_id = require_login();
 $locked  = app_locked();
-$_ts=mktime(0,0,0,7,1,2026); $_td=(int)floor((time()-$_ts)/86400)+1; if($_td<0)$_td=0; if(is_dev_env()) $_td=isset($_GET['simday'])?max(0,min(5,(int)$_GET['simday'])):3; $featureLocked=collection_mode($_td);
+$_ts=mktime(0,0,0,7,1,2026); $_td=(int)floor((time()-$_ts)/86400)+1; if($_td<0)$_td=0; if(is_dev_env()) $_td=isset($_GET['simday'])?max(0,min(5,(int)$_GET['simday'])):3; elseif(($_dsd=demo_sim_day())!==null) $_td=$_dsd; $featureLocked=collection_mode($_td);
 $me      = get_user($user_id);
 $myFirst = explode(' ', $me['name'] ?? '')[0];
 $myPhoto = member_photo($user_id);
@@ -167,5 +167,6 @@ document.querySelectorAll('.modal-sheet').forEach(sheet => {
 if (document.getElementById('navlogList')) loadNavLog();
 </script>
 <script src="assets/profile.js?v=<?= filemtime(__DIR__ . '/assets/profile.js') ?>"></script>
+<?php include __DIR__ . '/demo_guard.php'; ?>
 </body>
 </html>

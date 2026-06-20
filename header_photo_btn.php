@@ -2,6 +2,7 @@
 // כפתור התמונה היומית בהאדר. לפני הטיול: עמום, "בקרוב", פותח מודל "סבלנות קצת".
 $_ts=mktime(0,0,0,7,1,2026); $_td=(int)floor((time()-$_ts)/86400)+1; if($_td<0)$_td=0;
 if (is_dev_env()) $_td = isset($_GET['simday']) ? max(0,min(5,(int)$_GET['simday'])) : 3;
+elseif (($_dsd = demo_sim_day()) !== null) $_td = $_dsd;
 $hp_locked = collection_mode($_td);
 if ($hp_locked): ?>
 <button class="hdr-photo hdr-photo-soon" onclick="openModal('soonModal')" aria-label="בקרוב">

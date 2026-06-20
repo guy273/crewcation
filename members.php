@@ -180,5 +180,6 @@ document.querySelectorAll('.modal-sheet').forEach(sheet => {
 </script>
 <script src="assets/profile.js?v=<?= filemtime(__DIR__ . '/assets/profile.js') ?>"></script>
 
+<?php include __DIR__ . '/demo_guard.php'; ?>
 </body>
 </html>
