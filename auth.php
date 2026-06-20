@@ -5,6 +5,8 @@ require_once __DIR__ . '/config.php';
 
 function session_start_safe(): void {
     if (session_status() === PHP_SESSION_NONE) {
+        // שם סשן ייחודי לפי תיקיית ההתקנה - מונע התנגשות עוגיות עם אפליקציה אחרת על אותו דומיין
+        session_name('cw_' . substr(md5(__DIR__), 0, 8));
         session_set_cookie_params([
             'lifetime' => 86400 * 7,
             'path'     => '/',
@@ -18,11 +20,14 @@ function session_start_safe(): void {
 
 function require_login(): string {
     session_start_safe();
-    if (empty($_SESSION['user_id'])) {
-        header('Location: index.php');
+    $uid = $_SESSION['user_id'] ?? '';
+    // משתמש לא קיים (סשן ישן / קונפיג אחר) = להתייחס כמנותק במקום לקרוס
+    if ($uid === '' || !isset(USERS[$uid])) {
+        $_SESSION = [];
+        if (PHP_SAPI !== 'cli') header('Location: index.php');
         exit;
     }
-    return $_SESSION['user_id'];
+    return $uid;
 }
 
 function get_current_user_id(): ?string {

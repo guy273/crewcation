@@ -10,7 +10,9 @@ uploads/*
 
 # מערכת
 .DS_Store
+._*
 *.log
+error_log
 _tlogin.php
 
 # הערה: assets/members/*.jpg ו-assets/women/*.jpg כן נכללים - אלו פרצופי דמו
