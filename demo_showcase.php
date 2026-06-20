@@ -1,5 +1,5 @@
 <?php
-// עמוד תצוגת דמו (פלייגראונד): טלפון משמאל, פאנל בקרה+הנחיות מימין
+// עמוד תצוגת דמו (פלייגראונד): טלפון משמאל, פאנל בקרה+הנחיות מימין, קרדיט במרכז למטה
 declare(strict_types=1);
 ?>
 <!DOCTYPE html>
@@ -14,83 +14,99 @@ declare(strict_types=1);
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700;800;900&family=Bricolage+Grotesque:opsz,wght@12..96,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css?v=<?= filemtime(__DIR__ . '/assets/style.css') ?>">
     <style>
-        html, body { margin: 0; height: 100%; }
-        body { font-family: 'Noto Sans Hebrew', sans-serif; color: var(--text); }
-        .pg {
-            min-height: 100vh; box-sizing: border-box; padding: 30px clamp(20px, 5vw, 64px) 28px;
-            display: flex; flex-direction: column; gap: clamp(20px, 3vh, 34px);
-            background:
-                radial-gradient(ellipse 65% 45% at 85% -5%, rgba(var(--accent-rgb), 0.12) 0%, transparent 60%),
-                linear-gradient(180deg, #0a0a0f 0%, #060608 100%);
-            transition: background .4s ease;
+        html { scrollbar-gutter: stable; }
+        html, body { margin: 0; min-height: 100%; }
+        body { font-family: 'Noto Sans Hebrew', sans-serif; color: var(--text);
+            background: linear-gradient(180deg, #0a0a0f 0%, #060608 100%); }
+
+        .pg { position: relative; min-height: 100vh; box-sizing: border-box;
+            padding: 30px clamp(20px, 5vw, 64px) 24px; display: flex; flex-direction: column; gap: clamp(18px, 2.6vh, 30px); }
+        /* בלוב צהוב/אקסנט נע ברקע - מתחלף עם הצבע */
+        .pg::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background: radial-gradient(circle 36vw at 72% 8%, rgba(var(--accent-rgb), 0.16), transparent 56%);
+            filter: blur(34px); animation: blob-drift 26s ease-in-out infinite alternate; transition: background .4s ease; }
+        .pg > * { position: relative; z-index: 1; }
+        @keyframes blob-drift {
+            0%   { transform: translate(0, 0) scale(1); }
+            33%  { transform: translate(-13vw, 11vh) scale(1.1); }
+            66%  { transform: translate(7vw, -5vh) scale(0.95); }
+            100% { transform: translate(-4vw, 9vh) scale(1.05); }
         }
+
         /* כותרת ולוגו - ימין למעלה */
         .pg-head { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
         .pg-brand { display: flex; align-items: center; gap: 11px; }
         .pg-crown { width: 38px; height: 38px; filter: drop-shadow(0 0 14px var(--gold-glow)); }
-        .pg-title {
-            font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 800; margin: 0; letter-spacing: -0.5px;
-            background: var(--grad-gold-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-        }
+        .pg-title { font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 800; margin: 0; letter-spacing: -0.5px;
+            background: var(--grad-gold-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
         .pg-sub { color: var(--text-muted); font-size: clamp(.85rem, 1.2vw, .98rem); margin: 0; }
 
-        .pg-body {
-            flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(320px, 430px) 1fr;
-            gap: clamp(28px, 5vw, 72px); align-items: center; max-width: 1200px; width: 100%; margin: 0 auto;
-        }
-        .pg-stage { display: flex; justify-content: center; align-items: center; height: 100%; min-height: 0; }
+        .pg-body { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(320px, 440px) 1fr;
+            gap: clamp(28px, 5vw, 80px); align-items: start; max-width: 1240px; width: 100%; margin: 0 auto; }
+        .pg-stage { display: flex; justify-content: center; align-items: flex-start; }
 
-        /* מוקאפ טלפון */
-        .phone {
-            height: min(880px, calc(100vh - 200px)); aspect-ratio: 390 / 844; position: relative;
-            background: #050507; border-radius: 52px; padding: 12px;
-            box-shadow: 0 36px 80px rgba(0,0,0,.7), 0 0 0 2px #1c1c24, 0 0 0 12px #0c0c11, 0 0 0 14px #24242e;
-        }
-        .phone::before { content: ''; position: absolute; top: 17px; left: 50%; transform: translateX(-50%);
-            width: 118px; height: 26px; background: #050507; border-radius: 16px; z-index: 3; }
-        .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 42px; background: #06060a; display: block; }
+        /* מוקאפ טלפון - רחב */
+        .phone { height: min(1040px, calc(100vh - 235px)); aspect-ratio: 390 / 844; position: relative;
+            background: #050507; border-radius: 54px; padding: 13px;
+            box-shadow: 0 36px 80px rgba(0,0,0,.7), 0 0 0 2px #1c1c24, 0 0 0 13px #0c0c11, 0 0 0 15px #24242e; }
+        .phone::before { content: ''; position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+            width: 122px; height: 27px; background: #050507; border-radius: 16px; z-index: 3; }
+        .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 43px; background: #06060a; display: block; }
 
         /* פאנל ימני */
-        .pg-panel { display: flex; flex-direction: column; gap: 20px; }
-        .pg-controls { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
-        .phase-toggle { display: inline-flex; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 4px; gap: 4px; }
-        .phase-btn { border: 0; background: transparent; color: var(--text-muted); font-family: inherit; font-weight: 600;
-            font-size: .9rem; padding: 9px 20px; border-radius: var(--radius-pill); cursor: pointer; transition: all .15s; white-space: nowrap; }
-        .phase-btn.active { background: var(--grad-gold); color: #1a1505; }
+        .pg-panel { display: flex; flex-direction: column; gap: 24px; padding-top: 6px; }
+        .ctrl-group { display: flex; flex-direction: column; gap: 9px; align-items: flex-start; }
+        .ctrl-label { font-size: .76rem; color: var(--text-subtle); font-weight: 500; letter-spacing: .02em; }
+
+        /* טוגלים עדינים - כמו צהריים/ערב במוצר */
+        .phase-toggle { display: inline-flex; gap: 8px; }
+        .phase-btn { font-family: inherit; font-size: .82rem; font-weight: 500; color: var(--text-muted);
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: var(--radius-pill);
+            padding: .5rem 1.25rem; cursor: pointer; white-space: nowrap;
+            transition: color .25s, background .25s, border-color .25s, transform .35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .phase-btn.active { color: var(--gold-light); background: var(--gold-dim); border-color: var(--border-gold); }
+        .phase-btn:active { transform: scale(0.92); }
         .swatches { display: flex; gap: 15px; }
 
-        /* אקורדיונים בשפת המוצר (.acc) - בתוך עטיפה דקה */
-        .pg-acc { padding: 0 4px; }
-        .pg-acc .acc summary { padding: 1.05rem 0.25rem; }
-        .pg-acc .acc-body { color: var(--text); font-size: .92rem; line-height: 1.7; opacity: .9; padding-top: 0; padding-bottom: 1.1rem; }
+        /* אקורדיונים בשפת המוצר (.acc) - טקסט לייט, אנימציה עדינה */
+        .pg-acc .acc summary { padding: .95rem 0.25rem; }
+        .pg-acc .acc-title { font-weight: 300; font-size: 1rem; }
+        .pg-acc .acc-body { color: var(--text); font-size: .92rem; font-weight: 300; line-height: 1.75;
+            padding: .2rem 0.25rem 1rem; animation: pg-acc-in .32s ease; }
+        @keyframes pg-acc-in { from { opacity: 0; } to { opacity: 1; } }
         .pg-acc .acc-body ul { margin: 0; padding-inline-start: 18px; }
-        .pg-acc .acc-body li { margin: 4px 0; }
-        .pg-acc .acc-body code { background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 6px; font-size: .85em; }
+        .pg-acc .acc-body li { margin: 5px 0; }
+        .pg-acc .acc-body code { background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 6px; font-size: .85em; font-weight: 400; }
 
-        /* לינקים - קלאס */
-        .pg-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
-        .pg-link { flex: 1; min-width: 150px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            text-decoration: none; padding: 13px 16px; border-radius: var(--radius-md); font-weight: 600; font-size: .92rem;
+        /* לינקים - קלאס, אייקונים SVG */
+        .pg-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+        .pg-link { flex: 1; min-width: 150px; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+            text-decoration: none; padding: 13px 16px; border-radius: var(--radius-md); font-weight: 500; font-size: .92rem;
             color: var(--text); border: 1px solid var(--border);
             background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
             transition: border-color .18s, color .18s, transform .12s, box-shadow .18s; white-space: nowrap; }
+        .pg-link svg { width: 18px; height: 18px; flex: none; }
         .pg-link:hover { border-color: var(--border-gold-strong); color: var(--gold-light); transform: translateY(-1px); box-shadow: var(--glow-gold-sm); }
-        .pg-link.primary { color: #1a1505; background: var(--grad-gold); border-color: transparent; }
+        .pg-link.primary { color: #1a1505; background: var(--grad-gold); border-color: transparent; font-weight: 600; }
         .pg-link.primary:hover { color: #1a1505; box-shadow: var(--glow-gold); }
 
-        /* קרדיט ריזולב - לוגו + אנימציה פסיכדלית */
-        .resolve-credit { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 3px; text-decoration: none;
-            opacity: .62; transition: opacity .28s ease; margin-top: 2px; }
+        /* קרדיט ריזולב - מרכז למטה, לוגו + אנימציה פסיכדלית */
+        .pg-foot { display: flex; justify-content: center; padding-top: 6px; }
+        .resolve-credit { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none;
+            opacity: .85; transition: opacity .28s ease; }
         .resolve-credit:hover { opacity: 1; }
-        .resolve-credit__made { font-size: 11px; color: var(--text-subtle); }
-        .resolve-credit__wordmark { font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 300; line-height: 1;
+        .resolve-credit__made { font-size: 11px; color: #fff; opacity: .9; }
+        .resolve-credit__wordmark { font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 300; line-height: 1;
             background: linear-gradient(90deg, #6C6FD4 0%, #FF8B5C 25%, #9FE870 50%, #6C6FD4 75%, #FF8B5C 100%);
             background-size: 300% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
             animation: resolve-shimmer 4s linear infinite, resolve-hue 8s linear infinite; }
         .resolve-credit__dot { display: inline-block; animation: resolve-hue 3s linear infinite reverse; }
         @keyframes resolve-hue { 0%{filter:hue-rotate(0) brightness(1)} 25%{filter:hue-rotate(90deg) brightness(1.15)} 50%{filter:hue-rotate(180deg) brightness(1.1)} 75%{filter:hue-rotate(280deg) brightness(1.2)} 100%{filter:hue-rotate(360deg) brightness(1)} }
         @keyframes resolve-shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
-        @media (prefers-reduced-motion: reduce) { .resolve-credit__wordmark,.resolve-credit__dot{animation:none;background:none;-webkit-text-fill-color:#6C6FD4} }
+        @media (prefers-reduced-motion: reduce) {
+            .resolve-credit__wordmark,.resolve-credit__dot{animation:none;background:none;-webkit-text-fill-color:#6C6FD4}
+            .pg::before{animation:none}
+        }
 
         @media (max-width: 900px) {
             .pg-body { grid-template-columns: 1fr; gap: 28px; }
@@ -98,7 +114,7 @@ declare(strict_types=1);
             .pg-panel { max-width: 460px; margin: 0 auto; width: 100%; }
             .phone { height: 72vh; }
             .pg-head { align-items: center; text-align: center; }
-            .pg-controls { align-items: center; }
+            .ctrl-group { align-items: center; }
         }
     </style>
 </head>
@@ -114,11 +130,15 @@ declare(strict_types=1);
 
         <div class="pg-body">
             <aside class="pg-panel">
-                <div class="pg-controls">
+                <div class="ctrl-group">
+                    <span class="ctrl-label">מצב המוצר</span>
                     <div class="phase-toggle" id="phaseToggle">
                         <button class="phase-btn active" data-phase="before" type="button">לפני הטיסה</button>
                         <button class="phase-btn" data-phase="during" type="button">במהלך הטיול</button>
                     </div>
+                </div>
+                <div class="ctrl-group">
+                    <span class="ctrl-label">צבע</span>
                     <div class="swatches" id="themePicker">
                         <button class="theme-dot t-gold active"   data-theme="gold"   aria-label="זהב"></button>
                         <button class="theme-dot t-pink"          data-theme="pink"   aria-label="ורוד"></button>
@@ -128,9 +148,7 @@ declare(strict_types=1);
                 </div>
 
                 <div class="pg-acc">
-                    <?php
-                    $chev = '<span class="acc-chevron"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>';
-                    ?>
+                    <?php $chev = '<span class="acc-chevron"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>'; ?>
                     <details class="acc" open>
                         <summary><span class="acc-title">מה זה?</span><?= $chev ?></summary>
                         <div class="acc-body">אפליקציית טיול לחבורת חברים. מתכננים יחד לאן הולכים בכל יום, סופרים לאחור לטיסה, מעלים תמונות, משחקים - ובמהלך הטיול מצביעים, מדרגים ומתעדים. מוצר אחד שמתפתח לאורך הטיול.</div>
@@ -162,14 +180,15 @@ declare(strict_types=1);
                 </div>
 
                 <div class="pg-links">
-                    <a class="pg-link primary" href="https://github.com/guy273/crewcation" target="_blank" rel="noopener">⭐ קוד מקור בגיטהאב</a>
-                    <a class="pg-link" href="https://github.com/guy273/crewcation/blob/main/docs/ORGANIZER-GUIDE.md" target="_blank" rel="noopener">📖 מדריך המארגן</a>
+                    <a class="pg-link primary" href="https://github.com/guy273/crewcation" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.7c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.4 18 4.7 18 4.7c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+                        קוד מקור בגיטהאב
+                    </a>
+                    <a class="pg-link" href="https://github.com/guy273/crewcation/blob/main/docs/ORGANIZER-GUIDE.md" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                        מדריך המארגן
+                    </a>
                 </div>
-
-                <a href="https://resolve.co.il" target="_blank" rel="noopener" class="resolve-credit" aria-label="Resolve Studio">
-                    <span class="resolve-credit__made">נעשה באהבה ע"י</span>
-                    <span class="resolve-credit__wordmark" aria-hidden="true">Resolve<span class="resolve-credit__dot">.</span></span>
-                </a>
             </aside>
 
             <div class="pg-stage">
@@ -178,6 +197,13 @@ declare(strict_types=1);
                 </div>
             </div>
         </div>
+
+        <footer class="pg-foot">
+            <a href="https://resolve.co.il" target="_blank" rel="noopener" class="resolve-credit" aria-label="Resolve Studio">
+                <span class="resolve-credit__made">נעשה באהבה ע"י</span>
+                <span class="resolve-credit__wordmark" aria-hidden="true">Resolve<span class="resolve-credit__dot">.</span></span>
+            </a>
+        </footer>
     </div>
 
     <script>
@@ -215,17 +241,13 @@ declare(strict_types=1);
 
         var toggle = document.getElementById('phaseToggle');
         toggle.addEventListener('click', function (e) {
-            var b = e.target.closest('.phase-btn');
-            if (!b) return;
+            var b = e.target.closest('.phase-btn'); if (!b) return;
             toggle.querySelectorAll('.phase-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
             frame.src = 'app.php?phase=' + b.dataset.phase;
         });
 
-        // אקורדיון בלעדי
         var accs = document.querySelectorAll('.pg-acc .acc');
-        accs.forEach(function (d) {
-            d.addEventListener('toggle', function () { if (d.open) accs.forEach(function (o) { if (o !== d) o.open = false; }); });
-        });
+        accs.forEach(function (d) { d.addEventListener('toggle', function () { if (d.open) accs.forEach(function (o) { if (o !== d) o.open = false; }); }); });
     })();
     </script>
 </body>
