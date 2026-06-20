@@ -7,6 +7,9 @@
 > נבנה ע"י **[Resolve Studio](https://resolve.co.il) - סטודיו לעיצוב חווית משתמש (UX/UI)**.
 > כל המוצר - מחקר החוויה, העיצוב והקוד - נבנה מפרומפטים בלבד, אפס נגיעה בפיגמה.
 
+### ▶️ [נסה את הדמו החי](https://haparlament.alma-avizmil.co.il/demo/)
+שם משתמש: `crew` · סיסמה: `demo` · בחר דמות והיכנס. שחק עם מחליף הצבעים בתחתית הבית.
+
 > **TL;DR (EN):** A mobile-first Hebrew PWA for a group trip / bachelor (or bachelorette) party.
 > One app that evolves through the trip: countdown & planning before, live experience during,
 > photo album & ratings after. Pure PHP + SQLite, no framework. Configure one file and deploy
