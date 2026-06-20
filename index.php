@@ -4,8 +4,12 @@ declare(strict_types=1);
 require_once __DIR__ . '/auth.php';
 
 session_start_safe();
-// דמו: אין מסך כניסה - ישר פנימה
-if (demo_mode() || !empty($_SESSION['user_id'])) {
+// דמו: עמוד תצוגה - האפליקציה בתוך מוקאפ טלפון + מחליף צבעים
+if (demo_mode()) {
+    require __DIR__ . '/demo_showcase.php';
+    exit;
+}
+if (!empty($_SESSION['user_id'])) {
     header('Location: app.php');
     exit;
 }

@@ -20,9 +20,11 @@
 
 ## צילומים
 
-| בית (זהב) | החלפת צבע (ורוד) | מחליף הצבעים + קרדיט |
+![דמו](docs/screenshots/00-showcase.png)
+
+| בית (זהב) | החלפת צבע (ורוד) | משחק |
 |:---:|:---:|:---:|
-| ![בית](docs/screenshots/01-home-gold.png) | ![ורוד](docs/screenshots/02-home-pink.png) | ![מחליף צבעים](docs/screenshots/03-theme-picker.png) |
+| ![בית](docs/screenshots/01-home-gold.png) | ![ורוד](docs/screenshots/02-home-pink.png) | ![משחק](docs/screenshots/04-wheel-game.png) |
 
 > **מחליף צבעים חי** - 4 פלטות (זהב / ורוד / סגול / תכלת), כל אחת בדארק מוד, משנה את כל
 > המוצר בלחיצה. ורוד למסיבת רווקות, למשל.

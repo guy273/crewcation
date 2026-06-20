@@ -406,18 +406,6 @@ foreach (glob(__DIR__ . '/assets/hotel/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
 </section>
 <?php endif; ?>
 
-<!-- מחליף צבעים (דמו) + קרדיט סטודיו -->
-<section class="studio-foot">
-    <p class="tp-label">בחרו צבע</p>
-    <div class="theme-picker" id="themePicker">
-        <button class="theme-dot t-gold active"   data-theme="gold"   aria-label="זהב"></button>
-        <button class="theme-dot t-pink"          data-theme="pink"   aria-label="ורוד"></button>
-        <button class="theme-dot t-purple"        data-theme="purple" aria-label="סגול"></button>
-        <button class="theme-dot t-sky"           data-theme="sky"    aria-label="תכלת"></button>
-    </div>
-    <p class="made-with">נעשה באהבה ע"י <a href="https://resolve.co.il" target="_blank" rel="noopener">סטודיו ריזולב</a></p>
-</section>
-
 </main>
 
 <?php endif; ?>
@@ -1866,27 +1854,5 @@ if ('serviceWorker' in navigator) {
 if (window.caches) { caches.keys().then(ks => ks.forEach(k => caches.delete(k))); }
 </script>
 <script src="assets/profile.js?v=<?= filemtime(__DIR__ . '/assets/profile.js') ?>"></script>
-<script>
-// מחליף הצבעים (דמו)
-(function () {
-  var pick = document.getElementById('themePicker');
-  if (!pick) return;
-  var cur = 'gold';
-  try { cur = localStorage.getItem('cw-theme') || 'gold'; } catch (e) {}
-  function apply(t) {
-    if (t && t !== 'gold') document.documentElement.dataset.theme = t;
-    else delete document.documentElement.dataset.theme;
-    pick.querySelectorAll('.theme-dot').forEach(function (d) {
-      d.classList.toggle('active', d.dataset.theme === t);
-    });
-    try { localStorage.setItem('cw-theme', t); } catch (e) {}
-  }
-  apply(cur);
-  pick.addEventListener('click', function (e) {
-    var d = e.target.closest('.theme-dot');
-    if (d) apply(d.dataset.theme);
-  });
-})();
-</script>
 </body>
 </html>
