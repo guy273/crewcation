@@ -8,7 +8,8 @@
 > כל המוצר - מחקר החוויה, העיצוב והקוד - נבנה מפרומפטים בלבד, אפס נגיעה בפיגמה.
 
 ### ▶️ [נסה את הדמו החי](https://haparlament.alma-avizmil.co.il/demo/)
-שם משתמש: `crew` · סיסמה: `demo` · בחר דמות והיכנס. שחק עם מחליף הצבעים בתחתית הבית.
+לוחצים ונכנסים - בלי סיסמה. שחקו, דפדפו, ונסו את מחליף הצבעים בתחתית הבית.
+(במצב דמו העלאת תמונות מושבתת; בהתקנה אמיתית הכל פעיל.)
 
 > **TL;DR (EN):** A mobile-first Hebrew PWA for a group trip / bachelor (or bachelorette) party.
 > One app that evolves through the trip: countdown & planning before, live experience during,
