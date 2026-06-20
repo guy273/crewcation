@@ -1,0 +1,16 @@
+# סודות וקונפיג אישי - לעולם לא עולה לגיט
+config.php
+
+# דאטה משתמשים
+data/*.sqlite
+data/*.sqlite-*
+uploads/*
+!uploads/.gitkeep
+!data/.gitkeep
+
+# מערכת
+.DS_Store
+*.log
+_tlogin.php
+
+# הערה: assets/members/*.jpg ו-assets/women/*.jpg כן נכללים - אלו פרצופי דמו
