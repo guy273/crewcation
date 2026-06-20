@@ -8,6 +8,7 @@ $user_id = require_login();
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_error('Method not allowed', 405);
 }
+if (uploads_blocked()) json_error('זה דמו - העלאת תמונות מושבתת. תהנו משאר המוצר 🙂');
 if (empty($_FILES['photo']) || $_FILES['photo']['error'] !== UPLOAD_ERR_OK) {
     json_error('לא הועלה קובץ');
 }

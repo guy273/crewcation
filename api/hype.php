@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/auth.php';
 
 $user_id = require_login();
+if (uploads_blocked() && $_SERVER['REQUEST_METHOD'] === 'POST') json_error('זה דמו - העלאת תמונות מושבתת. תהנו משאר המוצר 🙂');
 $db = get_db();
 $db->exec("CREATE TABLE IF NOT EXISTS hype (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id TEXT NOT NULL, filename TEXT NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)");
 

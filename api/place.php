@@ -52,4 +52,4 @@ if ((int)$cnt->fetchColumn() >= 2) {
 $ins = $db->prepare("INSERT INTO places (day, meal, name, description, url, added_by) VALUES (?, ?, ?, '', ?, ?)");
 $ins->execute([$day, $meal, $name, $url, $user_id]);
 
-json_response(['ok' => true, 'id' => (int)$db->lastInsertRowId()]);
+json_response(['ok' => true, 'id' => (int)$db->lastInsertId()]);

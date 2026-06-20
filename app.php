@@ -54,7 +54,7 @@ $collectionMode = collection_mode($tripDayNow);
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css?v=<?= filemtime(__DIR__ . '/assets/style.css') ?>">
 </head>
-<body>
+<body<?= demo_mode() ? ' class="is-demo"' : '' ?>>
 <div class="app-bg-depth" aria-hidden="true"></div><div class="app-bg-sheen" aria-hidden="true"></div>
 
 <!-- Header -->

@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/auth.php';
 
 $user_id = require_login();
+if (uploads_blocked() && $_SERVER['REQUEST_METHOD'] === 'POST') json_error('זה דמו - העלאת תמונות מושבתת. תהנו משאר המוצר 🙂');
 
 // GET - list uploads for a day
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {

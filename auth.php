@@ -18,9 +18,24 @@ function session_start_safe(): void {
     }
 }
 
+function demo_mode(): bool {
+    return defined('DEMO_MODE') && DEMO_MODE;
+}
+
+// בדמו אי אפשר להעלות קבצים (וקטור הניצול היחיד בדמו פתוח)
+function uploads_blocked(): bool {
+    return demo_mode();
+}
+
 function require_login(): string {
     session_start_safe();
     $uid = $_SESSION['user_id'] ?? '';
+    // דמו: כניסה אוטומטית כדמות הדגמה, בלי מסך סיסמה
+    if (demo_mode() && ($uid === '' || !isset(USERS[$uid]))) {
+        $uid = (defined('DEMO_USER') && isset(USERS[DEMO_USER])) ? DEMO_USER : array_key_first(USERS);
+        $_SESSION['user_id'] = $uid;
+        return $uid;
+    }
     // משתמש לא קיים (סשן ישן / קונפיג אחר) = להתייחס כמנותק במקום לקרוס
     if ($uid === '' || !isset(USERS[$uid])) {
         $_SESSION = [];
@@ -86,7 +101,7 @@ function ensure_schema(PDO $db): void {
     $db->exec("CREATE TABLE IF NOT EXISTS places (
         id INTEGER PRIMARY KEY AUTOINCREMENT, day INTEGER NOT NULL,
         meal TEXT NOT NULL CHECK(meal IN ('lunch','dinner')),
-        name TEXT NOT NULL, description TEXT, url TEXT, user_id TEXT
+        name TEXT NOT NULL, description TEXT, url TEXT, added_by TEXT
     )");
     $db->exec("CREATE TABLE IF NOT EXISTS votes (
         id INTEGER PRIMARY KEY AUTOINCREMENT, day INTEGER NOT NULL,

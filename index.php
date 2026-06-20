@@ -4,7 +4,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/auth.php';
 
 session_start_safe();
-if (!empty($_SESSION['user_id'])) {
+// דמו: אין מסך כניסה - ישר פנימה
+if (demo_mode() || !empty($_SESSION['user_id'])) {
     header('Location: app.php');
     exit;
 }
@@ -22,12 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($needle === $full || $needle === $first) { $matchedUid = $uid; break; }
     }
 
-    // נרמול חסין: מורידים רווחים/קווים תחתונים + אותיות קטנות, ומשווים מול כל הצורות המקובלות
-    $normPw = mb_strtolower(preg_replace('/[\s_]+/u', '', $password));
-    $pwOk = false;
-    foreach (SHARED_PASSWORD_VARIANTS as $variant) {
-        if (hash_equals(mb_strtolower($variant), $normPw)) { $pwOk = true; break; }
-    }
+    // אימות מול הסיסמה האישית של המשתמש (bcrypt ב-USERS)
+    $pwOk = $matchedUid !== null && password_verify($password, USERS[$matchedUid]['password'] ?? '');
 
     if ($matchedUid === null) {
         $error = 'לא זיהינו את השם. נסה שם פרטי או שם מלא';
