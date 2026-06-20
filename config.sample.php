@@ -15,6 +15,8 @@ define('APP_NAME', 'Crewcation');
 define('LOGIN_USERNAME', 'crew');
 // קישור ניווט ליעד (Google Maps)
 define('HOTEL_URL', 'https://www.google.com/maps');
+// true = המוצר פתוח לכולם מיד. false = מסך "טיזר" נעול עד UNLOCK_TS (להפתעה).
+define('APP_RELEASED', true);
 
 // ===== תאריכי הטיול. השעון לפני הטיסה והמעבר האוטומטי למצב "במהלך" מבוססים על זה =====
 define('TRIP_START', mktime(0, 0, 0, 7, 1, 2026));  // יום 1, 00:00

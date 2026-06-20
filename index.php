@@ -43,6 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+<script>try{var t=localStorage.getItem("cw-theme");if(t&&t!=="gold")document.documentElement.dataset.theme=t;}catch(e){}</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="theme-color" content="#080810">
