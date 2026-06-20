@@ -33,8 +33,9 @@ declare(strict_types=1);
             100% { transform: translate(-4vw, 9vh) scale(1.05); }
         }
 
-        /* כותרת ולוגו - ימין למעלה */
-        .pg-head { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+        /* כותרת ולוגו - ימין למעלה, מיושר עם הפאנל */
+        .pg-head { display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+            max-width: 1240px; width: 100%; margin: 0 auto; }
         .pg-brand { display: flex; align-items: center; gap: 11px; }
         .pg-crown { width: 38px; height: 38px; filter: drop-shadow(0 0 14px var(--gold-glow)); }
         .pg-title { font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 800; margin: 0; letter-spacing: -0.5px;
@@ -54,9 +55,10 @@ declare(strict_types=1);
         .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 43px; background: #06060a; display: block; }
 
         /* פאנל ימני */
-        .pg-panel { display: flex; flex-direction: column; gap: 24px; padding-top: 6px; }
-        .ctrl-group { display: flex; flex-direction: column; gap: 9px; align-items: flex-start; }
-        .ctrl-label { font-size: .76rem; color: var(--text-subtle); font-weight: 500; letter-spacing: .02em; }
+        .pg-panel { display: flex; flex-direction: column; gap: 26px; padding-top: 6px; }
+        .pg-acc { margin-top: 14px; }
+        .ctrl-group { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+        .ctrl-label { font-size: .8rem; color: var(--gold-light); font-weight: 600; letter-spacing: .02em; }
 
         /* טוגלים עדינים - כמו צהריים/ערב במוצר */
         .phase-toggle { display: inline-flex; gap: 8px; }
@@ -151,7 +153,7 @@ declare(strict_types=1);
                     <?php $chev = '<span class="acc-chevron"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>'; ?>
                     <details class="acc" open>
                         <summary><span class="acc-title">מה זה?</span><?= $chev ?></summary>
-                        <div class="acc-body">אפליקציית טיול לחבורת חברים. מתכננים יחד לאן הולכים בכל יום, סופרים לאחור לטיסה, מעלים תמונות, משחקים - ובמהלך הטיול מצביעים, מדרגים ומתעדים. מוצר אחד שמתפתח לאורך הטיול.</div>
+                        <div class="acc-body">כל טיול חבר'ה ראוי לאפליקציה משלו. מתכננים יחד לאן הולכים בכל יום, סופרים לאחור לטיסה, מעלים תמונות ומשחקים - ובמהלך הטיול מצביעים, מדרגים ומתעדים הכל. מוצר אחד שחי איתכם מהרגע שקנו את הכרטיסים ועד הנחיתה בחזרה.</div>
                     </details>
                     <details class="acc">
                         <summary><span class="acc-title">הפיצ'רים</span><?= $chev ?></summary>

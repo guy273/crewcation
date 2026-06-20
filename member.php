@@ -20,7 +20,7 @@ function profile_photo(string $uid): ?string {
 }
 $photo = profile_photo($mid);
 
-// לעמוד החתן: שאר חברי <?= htmlspecialchars(APP_NAME) ?>
+// לעמוד החתן: שאר חברי הצוות שלרשותו
 $crew = [];
 if (!empty($m['is_groom'])) {
     foreach (USERS as $uid => $u) {

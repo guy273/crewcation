@@ -111,8 +111,11 @@
     background: rgba(4,4,8,0.72); backdrop-filter: blur(6px); padding: 24px; }
 .demo-modal.show { display: flex; animation: dm-fade .18s ease; }
 @keyframes dm-fade { from { opacity: 0; } to { opacity: 1; } }
-.demo-modal-card { background: var(--bg-elevated); border: 1px solid var(--border-gold); border-radius: var(--radius-xl);
-    padding: 26px 24px; max-width: 320px; text-align: center; box-shadow: var(--glow-gold); animation: dm-pop .22s cubic-bezier(.2,.8,.2,1); }
+.demo-modal-card { background: rgba(17,17,24,0.82); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--gold); border-radius: var(--radius-xl);
+    padding: 26px 24px; max-width: 320px; text-align: center;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(var(--accent-rgb),0.12);
+    animation: dm-pop .22s cubic-bezier(.2,.8,.2,1); }
 @keyframes dm-pop { from { transform: scale(.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 .demo-modal-card .dm-emoji { font-size: 2.4rem; }
 .demo-modal-card .dm-title { font-size: 1.25rem; font-weight: 800; margin: 8px 0 6px; color: var(--gold-light); }
