@@ -57,7 +57,7 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         @property --dp-spin { syntax: '<angle>'; initial-value: 0deg; inherits: true; }
         .demo-play { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; padding: 15px 40px;
             border-radius: var(--radius-pill); color: var(--gold-light); position: relative; isolation: isolate;
-            border: 2px solid transparent;
+            border: 1px solid transparent;
             background:
                 linear-gradient(#0c0c11, #0c0c11) padding-box,
                 conic-gradient(from var(--dp-spin), transparent 0deg, var(--gold-bright) 55deg, var(--gold) 105deg, transparent 190deg, transparent 360deg) border-box;
@@ -133,13 +133,18 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
             .pg-body { grid-template-columns: 1fr; gap: 26px; align-items: start; }
             .pg-stage { order: -1; gap: 0; }
             .pg-panel { max-width: 460px; margin: 0 auto; width: 100%; align-self: auto; }
-            .phone { width: 170px; height: auto; margin: 0 auto; }  /* מוקאפ קטן במובייל - רוחב קבוע, הגובה לפי aspect-ratio (פרופורציה נכונה) */
+            /* במובייל - בלי מסגרת טלפון, פשוט מלבן עם פינות מעוגלות */
+            .phone { width: 200px; height: auto; margin: 0 auto; padding: 0; border-radius: 18px;
+                box-shadow: 0 12px 34px rgba(0,0,0,0.55); }
+            .phone::before { display: none; }                /* בלי נוץ' */
+            .phone-screen { border-radius: 18px; }
             .pg-try { margin: 0; padding: 0; border: 0; }    /* הכפתור צף - בלי תווית/מפריד מיותם */
             .pg-try-label { display: none; }
             .pg-head { align-items: center; text-align: center; }
             .ctrl-group { align-items: center; }
             /* כפתור צף קבוע בתחתית המסך, מעל התוכן */
-            .demo-play { position: fixed; bottom: calc(14px + env(safe-area-inset-bottom)); left: 16px; right: 16px;
+            .demo-play { position: fixed; bottom: calc(14px + env(safe-area-inset-bottom)); left: 18px; right: 18px;
+                width: auto;                                  /* מבטל את width:100% של .pg-try - היה גורם לגלישה לימין/הצמדה לשמאל */
                 justify-content: center; z-index: 60; padding: 16px; font-size: 1.05rem;
                 /* רקע כהה אטום (padding-box) + טבעת קונכי מסתובבת (border-box) - הבורדר נשמר גם בכפתור הצף */
                 background:
