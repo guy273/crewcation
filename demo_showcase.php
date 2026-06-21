@@ -52,7 +52,7 @@ declare(strict_types=1);
             box-shadow: 0 36px 80px rgba(0,0,0,.7), 0 0 0 2px #1c1c24, 0 0 0 13px #0c0c11, 0 0 0 15px #24242e; }
         .phone::before { content: ''; position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
             width: 122px; height: 27px; background: #050507; border-radius: 16px; z-index: 3; }
-        .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 43px; background: #06060a; display: block; transition: opacity .3s ease; }
+        .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 43px; background: #06060a; display: block; transition: opacity .16s ease; }
 
         /* פאנל ימני */
         .pg-panel { display: flex; flex-direction: column; gap: 26px; padding-top: 6px; }
@@ -264,8 +264,8 @@ declare(strict_types=1);
             var b = e.target.closest('.phase-btn'); if (!b || b.classList.contains('active')) return;
             toggle.querySelectorAll('.phase-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
             var ph = b.dataset.phase;
-            frame.style.opacity = '0';                  // fade-out
-            setTimeout(function () { frame.src = 'app.php?phase=' + ph; }, 230);
+            frame.style.opacity = '0.55';               // dip עדין (לא לבן מלא)
+            setTimeout(function () { frame.src = 'app.php?phase=' + ph; }, 110);
         });
 
         var accs = document.querySelectorAll('.pg-acc .acc');

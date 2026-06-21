@@ -123,9 +123,15 @@ function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').
 let boardLoaded = false;
 function teamTab(tab){
     document.querySelectorAll('.team-tabs .meal-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
-    document.querySelector('.member-list').style.display = tab === 'members' ? '' : 'none';
+    const list = document.querySelector('.member-list');
     const board = document.getElementById('teamBoard');
+    list.style.display = tab === 'members' ? '' : 'none';
     if (board) board.style.display = tab === 'board' ? '' : 'none';
+    // מעבר חלק: גלילה לראש + fade-in של התוכן שנכנס (בלי קפיצה)
+    try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch(e) { window.scrollTo(0,0); }
+    const shown = tab === 'members' ? list : board;
+    if (shown) { shown.style.transition = 'none'; shown.style.opacity = '0';
+        requestAnimationFrame(() => { shown.style.transition = 'opacity .28s ease'; shown.style.opacity = '1'; }); }
     const sub = document.getElementById('teamSub');
     if (sub) sub.textContent = tab === 'members'
         ? 'כל חברי הצוות. צרו קשר במקרה שהלכתם לאיבוד.'
