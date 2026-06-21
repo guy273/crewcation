@@ -132,7 +132,7 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
             .pg-body { grid-template-columns: 1fr; gap: 26px; align-items: start; }
             .pg-stage { order: -1; gap: 0; }
             .pg-panel { max-width: 460px; margin: 0 auto; width: 100%; align-self: auto; }
-            .phone { display: none; }                       /* במובייל בלי מוקאפ - חוסך גלילה מיותרת */
+            .phone { height: 35vh; margin: 0 auto; }         /* מוקאפ קטן במובייל (חצי מהגודל הקודם) - נותן טעם בלי גלילה מיותרת */
             .pg-try { margin: 0; padding: 0; border: 0; }    /* הכפתור צף - בלי תווית/מפריד מיותם */
             .pg-try-label { display: none; }
             .pg-head { align-items: center; text-align: center; }
