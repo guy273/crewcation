@@ -47,7 +47,7 @@ declare(strict_types=1);
         .pg-stage { display: flex; justify-content: center; align-items: flex-start; }
 
         /* מוקאפ טלפון - רחב */
-        .phone { height: min(1040px, calc(100vh - 235px)); aspect-ratio: 390 / 844; position: relative;
+        .phone { height: min(1120px, calc(100vh - 215px)); aspect-ratio: 390 / 844; position: relative;
             background: #050507; border-radius: 54px; padding: 13px;
             box-shadow: 0 36px 80px rgba(0,0,0,.7), 0 0 0 2px #1c1c24, 0 0 0 13px #0c0c11, 0 0 0 15px #24242e; }
         .phone::before { content: ''; position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
@@ -248,7 +248,9 @@ declare(strict_types=1);
                 if (doc && !doc.getElementById('cwNoScroll')) {
                     var st = doc.createElement('style'); st.id = 'cwNoScroll';
                     // הקטנה אחידה (zoom) - הכל קטן ומרווח, בלי לשבור את הלייאאוט; + הסתרת סקרולר
-                    st.textContent = 'html{zoom:0.86;scrollbar-width:none}body::-webkit-scrollbar,html::-webkit-scrollbar{width:0;height:0;display:none}';
+                    st.textContent = 'html{zoom:0.86;scrollbar-width:none}body::-webkit-scrollbar,html::-webkit-scrollbar{width:0;height:0;display:none}'
+                        + '.app-header{padding-top:36px}'        /* מרווח שההאדר יֵרד מתחת לנוץ' של המוקאפ */
+                        + '.profile-greet{font-size:.72rem}';    /* פונט "אהלן" קטן יותר */
                     doc.head.appendChild(st);
                 }
             } catch (e) {}
