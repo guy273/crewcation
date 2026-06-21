@@ -68,9 +68,10 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         .swatches { display: flex; gap: 15px; }
 
         /* אקורדיונים בשפת המוצר */
-        .pg-acc .acc summary { padding: .95rem 0.25rem; }
-        .pg-acc .acc-title { font-weight: 300; font-size: 1rem; }
-        .pg-acc .acc-body { color: var(--text); font-size: .92rem; font-weight: 300; line-height: 1.75; padding: .2rem 0.25rem 1rem; animation: pg-acc-in .32s ease; }
+        .pg-acc-label { font-size: .8rem; color: var(--gold-light); font-weight: 600; letter-spacing: .02em; margin: 0 0 4px; }
+        .pg-acc .acc summary { padding: .9rem 0.25rem; }
+        .pg-acc .acc-title { font-weight: 300; font-size: .96rem; }
+        .pg-acc .acc-body { color: rgba(255,255,255,0.66); font-size: .88rem; font-weight: 300; line-height: 1.8; padding: .2rem 0.25rem 1rem; animation: pg-acc-in .32s ease; }
         @keyframes pg-acc-in { from { opacity: 0; } to { opacity: 1; } }
         .pg-acc .acc-body ul { margin: 0; padding-inline-start: 18px; }
         .pg-acc .acc-body li { margin: 5px 0; }
@@ -135,6 +136,7 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
 
         <div class="pg-body">
             <aside class="pg-panel">
+                <p class="pg-acc-label">על המוצר</p>
                 <div class="pg-acc">
                     <?php $chev = '<span class="acc-chevron"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>'; ?>
                     <details class="acc">
