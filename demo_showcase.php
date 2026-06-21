@@ -54,12 +54,20 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         .phone-screen { width: 100%; height: 100%; border: 0; border-radius: 43px; background: #06060a; display: block;
             object-fit: cover; object-position: top; transition: opacity .2s ease; }
 
-        .demo-play { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; padding: 14px 40px;
-            border-radius: var(--radius-pill); background: rgba(255,255,255,0.03); color: var(--gold-light);
-            border: 1.5px solid var(--gold); font-weight: 700; font-size: 1.02rem; transition: background .18s, transform .12s, box-shadow .2s; }
+        @property --dp-spin { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+        .demo-play { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; padding: 15px 40px;
+            border-radius: var(--radius-pill); color: var(--gold-light); position: relative;
+            border: 2px solid transparent;
+            background:
+                linear-gradient(#0c0c11, #0c0c11) padding-box,
+                conic-gradient(from var(--dp-spin), transparent 0deg, var(--gold-bright) 55deg, var(--gold) 105deg, transparent 190deg, transparent 360deg) border-box;
+            font-weight: 700; font-size: 1.02rem; transition: transform .12s, box-shadow .2s, filter .2s;
+            animation: dp-spin 3.6s linear infinite; }
+        @keyframes dp-spin { to { --dp-spin: 360deg; } }
         .demo-play svg { width: 14px; height: 14px; }
-        .demo-play:hover { background: var(--gold-dim); box-shadow: var(--glow-gold-sm); transform: translateY(-2px); }
+        .demo-play:hover { box-shadow: var(--glow-gold-sm); transform: translateY(-2px); filter: brightness(1.15); }
         .demo-play:active { transform: scale(.97); }
+        @media (prefers-reduced-motion: reduce) { .demo-play { animation: none; } }
 
         /* פאנל ימני */
         .pg-panel { display: flex; flex-direction: column; gap: 26px; padding-top: 6px; align-self: center; }
@@ -200,10 +208,45 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         </footer>
     </div>
 
+    <style>
+        .a2hs { position: fixed; inset: 0; z-index: 200; display: none; align-items: flex-end; justify-content: center;
+            background: rgba(4,4,8,0.66); backdrop-filter: blur(4px); padding: 16px; }
+        .a2hs.show { display: flex; }
+        .a2hs-card { width: 100%; max-width: 420px; background: linear-gradient(180deg, #14140f 0%, #0c0c10 100%);
+            border: 1px solid var(--border-gold); border-radius: 24px; padding: 26px 22px 22px; text-align: center;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.55); animation: a2hs-up .28s cubic-bezier(.22,1,.36,1); }
+        @keyframes a2hs-up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+        .a2hs-title { font-size: 1.18rem; font-weight: 800; color: var(--gold-light); margin: 0 0 8px; }
+        .a2hs-sub { font-size: .92rem; line-height: 1.6; color: rgba(255,255,255,0.74); font-weight: 300; margin: 0 0 18px; }
+        .a2hs-sub b { color: var(--gold-light); font-weight: 600; }
+        .a2hs-go { display: block; width: 100%; padding: 14px; border-radius: var(--radius-pill); border: 0;
+            background: var(--grad-gold); color: #1a1505; font-weight: 800; font-size: 1rem; cursor: pointer; }
+        .a2hs-skip { display: inline-block; margin-top: 12px; background: none; border: 0; color: var(--text-muted);
+            font-size: .82rem; cursor: pointer; text-decoration: underline; }
+    </style>
+    <div id="a2hs" class="a2hs">
+        <div class="a2hs-card">
+            <p class="a2hs-title">רגע לפני - הוסיפו למסך הבית</p>
+            <p class="a2hs-sub">לחוויה חלקה יותר (מסך מלא, בלי שורת דפדפן): פתחו את <b>תפריט השיתוף</b> בדפדפן ובחרו <b>"הוסף למסך הבית"</b>. אפשר גם פשוט להמשיך לדמו.</p>
+            <button id="a2hsGo" class="a2hs-go" type="button">הבנתי, המשך לדמו</button>
+        </div>
+    </div>
+
     <script>
     (function () {
         var accs = document.querySelectorAll('.pg-acc .acc');
         accs.forEach(function (d) { d.addEventListener('toggle', function () { if (d.open) accs.forEach(function (o) { if (o !== d) o.open = false; }); }); });
+
+        // מובייל: לחיצה על "שחקו עם הדמו" -> פופאפ "הוסף למסך הבית", ואז לדמו
+        var isMobile = window.matchMedia('(max-width: 768px)').matches || (('ontouchstart' in window) && window.matchMedia('(pointer: coarse)').matches);
+        var play = document.querySelector('.demo-play');
+        var modal = document.getElementById('a2hs');
+        var go = document.getElementById('a2hsGo');
+        if (isMobile && play && modal && go) {
+            play.addEventListener('click', function (e) { e.preventDefault(); modal.classList.add('show'); });
+            go.addEventListener('click', function () { window.location.href = '/demo'; });
+            modal.addEventListener('click', function (e) { if (e.target === modal) modal.classList.remove('show'); });
+        }
     })();
     </script>
 </body>
