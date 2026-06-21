@@ -12,7 +12,7 @@ $myPhoto  = member_photo($user_id);
 
 $locked = app_locked();
 
-// אתונה 1-5.7.2026: רביעי עד ראשון
+// ברצלונה 1-5.7.2026: רביעי עד ראשון
 $dayLabels = [
     1 => ['title' => 'יום רביעי',  'date' => '1.7'],
     2 => ['title' => 'יום חמישי',  'date' => '2.7'],
@@ -90,7 +90,7 @@ foreach (glob(__DIR__ . '/assets/hotel/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
 <main class="app-wrap teaser-wrap">
     <section class="teaser-hero reveal">
         <div class="teaser-soon">עוד מעט טסים</div>
-        <h2>הספירה לאתונה התחילה</h2>
+        <h2>הספירה לברצלונה התחילה</h2>
         <p class="teaser-sub">עד אז - שתפו מקומות שבא לכם לבקר בהם. הכל ייפתח ביום הטיסה.</p>
         <div class="countdown" id="countdown"></div>
     </section>
@@ -102,7 +102,7 @@ foreach (glob(__DIR__ . '/assets/hotel/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
                 <span class="suggest-count" id="sugCount"></span>
                 <span class="info-wrap" id="sugInfo">
                     <button class="info-i" onclick="this.parentNode.classList.toggle('open'); event.stopPropagation()" aria-label="מה זה">i</button>
-                    <span class="info-tip" id="sugTitle">יש מקום שבא לך לבקר בו באתונה? שתף אותנו כאן. עד <?= MAX_SUGGESTIONS_PER_USER ?> מקומות לכל אחד.</span>
+                    <span class="info-tip" id="sugTitle">יש מקום שבא לך לבקר בו בברצלונה? שתף אותנו כאן. עד <?= MAX_SUGGESTIONS_PER_USER ?> מקומות לכל אחד.</span>
                 </span>
             </div>
             <button class="gal-add sug-toggle" id="sugToggle" onclick="toggleSugForm()" aria-label="הוספת מקום">
@@ -142,14 +142,14 @@ foreach (glob(__DIR__ . '/assets/hotel/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
             </summary>
             <div class="acc-body">
                 <div class="flight-leg">
-                    <div class="leg-head">הלוך · תל אביב ← אתונה</div>
+                    <div class="leg-head">הלוך · תל אביב ← ברצלונה</div>
                     <div class="leg-rows"><span>1 ביולי</span><span>המראה 10:00</span><span>נחיתה 12:15</span></div>
-                    <div class="leg-sub">ישראיר 6H 563 · טרמינל 3</div>
+                    <div class="leg-sub">טיסה לדוגמה · טרמינל 1</div>
                 </div>
                 <div class="flight-leg">
-                    <div class="leg-head">חזור · אתונה ← תל אביב</div>
+                    <div class="leg-head">חזור · ברצלונה ← תל אביב</div>
                     <div class="leg-rows"><span>5 ביולי</span><span>המראה 14:15</span><span>נחיתה 16:15</span></div>
-                    <div class="leg-sub">ישראיר 6H 562</div>
+                    <div class="leg-sub">טיסה לדוגמה</div>
                 </div>
             </div>
         </details>
@@ -239,9 +239,9 @@ const WHEEL_FACES = <?= json_encode($wheelFaces, JSON_UNESCAPED_UNICODE) ?>;
         <div class="navlog-title">טסים הביתה</div>
         <div class="fh-count" id="fhCount"><div class="spinner"></div></div>
         <div class="flight-leg fh-leg">
-            <div class="leg-head">חזור · אתונה ← תל אביב</div>
+            <div class="leg-head">חזור · ברצלונה ← תל אביב</div>
             <div class="leg-rows"><span>5 ביולי</span><span>המראה 14:15</span><span>נחיתה 16:15</span></div>
-            <div class="leg-sub">ישראיר 6H 562</div>
+            <div class="leg-sub">טיסה לדוגמה</div>
         </div>
         <p class="fh-note">לא נספיק כלום היום. תארזו, תשתו קפה, ואל תאחרו.</p>
     </div>
@@ -295,9 +295,9 @@ const WHEEL_FACES = <?= json_encode($wheelFaces, JSON_UNESCAPED_UNICODE) ?>;
     <section class="ratings-open">
         <div class="navlog-title">רק נניח את זה פה</div>
         <div class="flight-leg fh-leg">
-            <div class="leg-head">חזור · אתונה ← תל אביב</div>
+            <div class="leg-head">חזור · ברצלונה ← תל אביב</div>
             <div class="leg-rows"><span>5 ביולי</span><span>המראה 14:15</span><span>נחיתה 16:15</span></div>
-            <div class="leg-sub">ישראיר 6H 562</div>
+            <div class="leg-sub">טיסה לדוגמה</div>
         </div>
     </section>
     <?php endif; ?>
@@ -358,14 +358,14 @@ foreach (glob(__DIR__ . '/assets/hotel/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
         </summary>
         <div class="acc-body">
             <div class="flight-leg">
-                <div class="leg-head">הלוך · תל אביב ← אתונה</div>
+                <div class="leg-head">הלוך · תל אביב ← ברצלונה</div>
                 <div class="leg-rows"><span>1 ביולי</span><span>המראה 10:00</span><span>נחיתה 12:15</span></div>
-                <div class="leg-sub">ישראיר 6H 563 · טרמינל 3</div>
+                <div class="leg-sub">טיסה לדוגמה · טרמינל 1</div>
             </div>
             <div class="flight-leg">
-                <div class="leg-head">חזור · אתונה ← תל אביב</div>
+                <div class="leg-head">חזור · ברצלונה ← תל אביב</div>
                 <div class="leg-rows"><span>5 ביולי</span><span>המראה 14:15</span><span>נחיתה 16:15</span></div>
-                <div class="leg-sub">ישראיר 6H 562</div>
+                <div class="leg-sub">טיסה לדוגמה</div>
             </div>
         </div>
     </details>
@@ -478,7 +478,7 @@ const USER_NAME = <?= json_encode($userName) ?>;
 const IS_GROOM  = <?= json_encode($user['is_groom']) ?>;
 const LOCKED    = <?= json_encode($locked) ?>;
 const UNLOCK_MS = <?= UNLOCK_TS ?> * 1000;
-const FLIGHT_MS = new Date(2026, 6, 1, 10, 0, 0).getTime(); // המראה לאתונה
+const FLIGHT_MS = new Date(2026, 6, 1, 10, 0, 0).getTime(); // המראה לברצלונה
 const GROOM_ID = <?php foreach (USERS as $uid => $u) if (!empty($u['is_groom'])) { echo json_encode($uid); break; } ?>;
 const TRIP_DAY_NOW = <?= (int)$tripDayNow ?>;
 const COLLECTION_MODE = <?= json_encode($collectionMode) ?>;
