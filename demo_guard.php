@@ -8,6 +8,14 @@
 .demo-phase .dp-tag { font-size: .66rem; color: var(--gold-light); font-weight: 600; padding: 0 8px; white-space: nowrap; cursor: grab; user-select: none; display: inline-flex; align-items: center; gap: 4px; touch-action: none; }
 .demo-phase .dp-tag::before { content: '⠿'; font-size: .9rem; opacity: .7; }
 .demo-phase.dragging { cursor: grabbing; }
+/* טיפ "הוסף למסך הבית" - מופיע בתוך הדמו במובייל, פעם אחת. מרוכך, בלי בולד/צהוב */
+.a2hs-tip { position: fixed; left: 12px; right: 12px; bottom: calc(78px + env(safe-area-inset-bottom)); z-index: 70;
+    display: none; align-items: center; gap: 10px; padding: 12px 14px;
+    background: rgba(14,14,20,0.96); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.a2hs-tip.show { display: flex; }
+.a2hs-tip p { margin: 0; font-size: .82rem; font-weight: 400; line-height: 1.55; color: rgba(255,255,255,0.86); flex: 1; }
+.a2hs-tip-x { flex: none; background: none; border: 0; color: rgba(255,255,255,0.5); font-size: 1.4rem; line-height: 1; cursor: pointer; padding: 0 2px; }
 .demo-phase .dp-btn { font-size: .8rem; font-weight: 600; text-decoration: none; color: var(--text-muted);
     padding: 7px 15px; border-radius: 100px; white-space: nowrap; transition: all .2s; }
 .demo-phase .dp-btn.active { background: var(--grad-gold); color: #1a1505; }
@@ -24,6 +32,10 @@
         <p class="dm-sub">אל תגזימו :) זו הדגמה - פעולות שמירה כבויות. שחקו, דפדפו, ותהנו מהמוצר!</p>
         <button class="dm-btn" type="button" onclick="document.getElementById('demoModal').classList.remove('show')">הבנתי</button>
     </div>
+</div>
+<div id="a2hsTip" class="a2hs-tip">
+    <p>טיפ: הוסיפו את הדמו למסך הבית - כפתור השיתוף בדפדפן, ואז "הוסף למסך הבית". פותח את האפליקציה ישירות בכל פעם.</p>
+    <button class="a2hs-tip-x" type="button" aria-label="סגירה">&times;</button>
 </div>
 <script>
 (function () {
@@ -72,6 +84,18 @@
         grip.addEventListener('touchstart', function (e) { var t = e.touches[0]; start(t.clientX, t.clientY); e.preventDefault(); }, { passive: false });
         document.addEventListener('touchmove', function (e) { if (on) { var t = e.touches[0]; move(t.clientX, t.clientY); e.preventDefault(); } }, { passive: false });
         document.addEventListener('touchend', end); document.addEventListener('touchcancel', end);
+    })();
+
+    // טיפ "הוסף למסך הבית" - מובייל, פעם אחת, ולא כשכבר במצב standalone
+    (function () {
+        var tip = document.getElementById('a2hsTip'); if (!tip) return;
+        var mobile = window.matchMedia('(max-width: 768px)').matches || (('ontouchstart' in window) && window.matchMedia('(pointer: coarse)').matches);
+        var standalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+        var seen; try { seen = localStorage.getItem('cw-a2hs'); } catch (e) {}
+        if (mobile && !standalone && !seen) { setTimeout(function () { tip.classList.add('show'); }, 1000); }
+        tip.querySelector('.a2hs-tip-x').addEventListener('click', function () {
+            tip.classList.remove('show'); try { localStorage.setItem('cw-a2hs', '1'); } catch (e) {}
+        });
     })();
 
     // בדמו: כל לינק חיצוני נפתח בטאב חדש (שלא ינווטו החוצה מהדמו)
