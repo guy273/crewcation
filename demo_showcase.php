@@ -42,8 +42,8 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         .pg-sub { color: rgba(255,255,255,0.82); font-weight: 400; font-size: clamp(.85rem, 1.2vw, .98rem); margin: 0; }
 
         .pg-body { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(320px, 440px) 1fr;
-            gap: clamp(28px, 5vw, 80px); align-items: center; max-width: 1240px; width: 100%; margin: 0 auto; }
-        .pg-stage { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 48px; }
+            gap: clamp(28px, 5vw, 80px); align-items: start; max-width: 1240px; width: 100%; margin: 0 auto; }
+        .pg-stage { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 48px; align-self: center; }
 
         /* מוקאפ טלפון סטטי */
         .phone { height: min(1040px, calc(100vh - 235px)); aspect-ratio: 390 / 844; position: relative;
@@ -118,10 +118,10 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
 
         @media (max-width: 900px) {
             .pg { padding-bottom: 100px; }                 /* מקום לכפתור הצף */
-            .pg-body { grid-template-columns: 1fr; gap: 26px; }
-            .pg-stage { order: -1; }
+            .pg-body { grid-template-columns: 1fr; gap: 26px; align-items: start; }
+            .pg-stage { order: -1; gap: 0; }
             .pg-panel { max-width: 460px; margin: 0 auto; width: 100%; align-self: auto; }
-            .phone { height: 70vh; }
+            .phone { display: none; }                       /* במובייל בלי מוקאפ - חוסך גלילה מיותרת */
             .pg-head { align-items: center; text-align: center; }
             .ctrl-group { align-items: center; }
             /* כפתור צף קבוע בתחתית המסך, מעל התוכן */
