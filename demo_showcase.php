@@ -108,8 +108,8 @@ declare(strict_types=1);
         .resolve-credit__wordmark { font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 300; line-height: 1;
             background: linear-gradient(90deg, #8B8EE0 0%, #FFB089 28%, #B9E8A2 52%, #8B8EE0 76%, #FFB089 100%);
             background-size: 280% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            animation: resolve-shimmer 13s ease-in-out infinite, resolve-hue 22s ease-in-out infinite; }
-        .resolve-credit__dot { display: inline-block; animation: resolve-hue 16s ease-in-out infinite reverse; }
+            animation: resolve-shimmer 32s ease-in-out infinite, resolve-hue 54s ease-in-out infinite; }
+        .resolve-credit__dot { display: inline-block; animation: resolve-hue 40s ease-in-out infinite reverse; }
         @keyframes resolve-hue {
             0%   { filter: hue-rotate(0deg)   brightness(1.02) drop-shadow(0 0 10px rgba(139,142,224,0.35)); }
             50%  { filter: hue-rotate(180deg) brightness(1.05) drop-shadow(0 0 14px rgba(185,232,162,0.28)); }
