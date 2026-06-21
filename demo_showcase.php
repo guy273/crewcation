@@ -99,12 +99,16 @@ declare(strict_types=1);
         .resolve-credit:hover { opacity: 1; }
         .resolve-credit__made { font-size: 11px; color: #fff; opacity: .9; }
         .resolve-credit__wordmark { font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 300; line-height: 1;
-            background: linear-gradient(90deg, #6C6FD4 0%, #FF8B5C 25%, #9FE870 50%, #6C6FD4 75%, #FF8B5C 100%);
-            background-size: 300% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            animation: resolve-shimmer 4s linear infinite, resolve-hue 8s linear infinite; }
-        .resolve-credit__dot { display: inline-block; animation: resolve-hue 3s linear infinite reverse; }
-        @keyframes resolve-hue { 0%{filter:hue-rotate(0) brightness(1)} 25%{filter:hue-rotate(90deg) brightness(1.15)} 50%{filter:hue-rotate(180deg) brightness(1.1)} 75%{filter:hue-rotate(280deg) brightness(1.2)} 100%{filter:hue-rotate(360deg) brightness(1)} }
-        @keyframes resolve-shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
+            background: linear-gradient(90deg, #8B8EE0 0%, #FFB089 28%, #B9E8A2 52%, #8B8EE0 76%, #FFB089 100%);
+            background-size: 280% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            animation: resolve-shimmer 13s ease-in-out infinite, resolve-hue 22s ease-in-out infinite; }
+        .resolve-credit__dot { display: inline-block; animation: resolve-hue 16s ease-in-out infinite reverse; }
+        @keyframes resolve-hue {
+            0%   { filter: hue-rotate(0deg)   brightness(1.02) drop-shadow(0 0 10px rgba(139,142,224,0.35)); }
+            50%  { filter: hue-rotate(180deg) brightness(1.05) drop-shadow(0 0 14px rgba(185,232,162,0.28)); }
+            100% { filter: hue-rotate(360deg) brightness(1.02) drop-shadow(0 0 10px rgba(139,142,224,0.35)); }
+        }
+        @keyframes resolve-shimmer { 0%{background-position:180% center} 50%{background-position:-180% center} 100%{background-position:180% center} }
         @media (prefers-reduced-motion: reduce) {
             .resolve-credit__wordmark,.resolve-credit__dot{animation:none;background:none;-webkit-text-fill-color:#6C6FD4}
             .pg::before{animation:none}
