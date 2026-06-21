@@ -146,11 +146,10 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
             .pg-try .demo-play { width: auto; }               /* מנצח את width:100% של הדסקטופ (specificity) - הכפתור הצף ממורכז בין left/right */
             .demo-play { position: fixed; bottom: calc(14px + env(safe-area-inset-bottom)); left: 18px; right: 18px;
                 justify-content: center; z-index: 60; padding: 16px; font-size: 1.05rem;
-                /* רקע כהה אטום (padding-box) + טבעת קונכי מסתובבת (border-box) - הבורדר נשמר גם בכפתור הצף */
+                /* רקע כהה אטום מלא (padding-box) + טבעת קונכי מסתובבת (border-box) */
                 background:
-                    linear-gradient(rgba(10,10,16,0.96), rgba(10,10,16,0.96)) padding-box,
+                    linear-gradient(#0c0c11, #0c0c11) padding-box,
                     conic-gradient(from var(--dp-spin), transparent 0deg, var(--gold-bright) 55deg, var(--gold) 105deg, transparent 190deg, transparent 360deg) border-box;
-                backdrop-filter: blur(10px);
                 box-shadow: 0 8px 30px rgba(0,0,0,0.6); }
         }
     </style>
