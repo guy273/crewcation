@@ -66,9 +66,9 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         /* הילת ניאון רכה - עותק מטושטש של אותה טבעת מסתובבת, נושם עדין */
         .demo-play::before { content: ''; position: absolute; inset: -4px; border-radius: inherit; z-index: -1;
             background: conic-gradient(from var(--dp-spin), transparent 0deg, var(--gold-bright) 55deg, var(--gold) 105deg, transparent 190deg, transparent 360deg);
-            filter: blur(13px); opacity: .16; animation: dp-breathe 4s ease-in-out infinite; }
+            filter: blur(13px); opacity: .22; animation: dp-breathe 4s ease-in-out infinite; }
         @keyframes dp-spin { to { --dp-spin: 360deg; } }
-        @keyframes dp-breathe { 0%,100% { opacity: .1; } 50% { opacity: .22; } }
+        @keyframes dp-breathe { 0%,100% { opacity: .14; } 50% { opacity: .3; } }
         .demo-play svg { width: 14px; height: 14px; }
         .demo-play:hover { transform: translateY(-2px); filter: brightness(1.12); }
         .demo-play:hover::before { opacity: .32; }
@@ -143,8 +143,8 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
             .pg-head { align-items: center; text-align: center; }
             .ctrl-group { align-items: center; }
             /* כפתור צף קבוע בתחתית המסך, מעל התוכן */
+            .pg-try .demo-play { width: auto; }               /* מנצח את width:100% של הדסקטופ (specificity) - הכפתור הצף ממורכז בין left/right */
             .demo-play { position: fixed; bottom: calc(14px + env(safe-area-inset-bottom)); left: 18px; right: 18px;
-                width: auto;                                  /* מבטל את width:100% של .pg-try - היה גורם לגלישה לימין/הצמדה לשמאל */
                 justify-content: center; z-index: 60; padding: 16px; font-size: 1.05rem;
                 /* רקע כהה אטום (padding-box) + טבעת קונכי מסתובבת (border-box) - הבורדר נשמר גם בכפתור הצף */
                 background:
