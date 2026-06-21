@@ -7,7 +7,7 @@ if (collection_mode($_td)): ?>
     <div class="modal-sheet soon-sheet" role="dialog" aria-modal="true" aria-label="סבלנות" tabindex="-1" onclick="event.stopPropagation()">
         <div class="modal-handle"></div>
         <div class="soon-big">סבלנות קצת</div>
-        <p class="soon-sub">הכל ייפתח ביום הטיסה. 1.7, בבוקר.</p>
+        <p class="soon-sub">הכל ייפתח ביום הטיסה.</p>
     </div>
 </div>
 <?php endif; ?>

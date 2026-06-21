@@ -143,12 +143,12 @@ foreach (glob(__DIR__ . '/assets/hotel/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
             <div class="acc-body">
                 <div class="flight-leg">
                     <div class="leg-head">הלוך · תל אביב ← ברצלונה</div>
-                    <div class="leg-rows"><span>1 ביולי</span><span>המראה 10:00</span><span>נחיתה 12:15</span></div>
+                    <div class="leg-rows"><span>תאריך ושעות - לעדכון</span></div>
                     <div class="leg-sub">טיסה לדוגמה · טרמינל 1</div>
                 </div>
                 <div class="flight-leg">
                     <div class="leg-head">חזור · ברצלונה ← תל אביב</div>
-                    <div class="leg-rows"><span>5 ביולי</span><span>המראה 14:15</span><span>נחיתה 16:15</span></div>
+                    <div class="leg-rows"><span>תאריך ושעות - לעדכון</span></div>
                     <div class="leg-sub">טיסה לדוגמה</div>
                 </div>
             </div>
@@ -240,7 +240,7 @@ const WHEEL_FACES = <?= json_encode($wheelFaces, JSON_UNESCAPED_UNICODE) ?>;
         <div class="fh-count" id="fhCount"><div class="spinner"></div></div>
         <div class="flight-leg fh-leg">
             <div class="leg-head">חזור · ברצלונה ← תל אביב</div>
-            <div class="leg-rows"><span>5 ביולי</span><span>המראה 14:15</span><span>נחיתה 16:15</span></div>
+            <div class="leg-rows"><span>תאריך ושעות - לעדכון</span></div>
             <div class="leg-sub">טיסה לדוגמה</div>
         </div>
         <p class="fh-note">לא נספיק כלום היום. תארזו, תשתו קפה, ואל תאחרו.</p>
@@ -296,7 +296,7 @@ const WHEEL_FACES = <?= json_encode($wheelFaces, JSON_UNESCAPED_UNICODE) ?>;
         <div class="navlog-title">רק נניח את זה פה</div>
         <div class="flight-leg fh-leg">
             <div class="leg-head">חזור · ברצלונה ← תל אביב</div>
-            <div class="leg-rows"><span>5 ביולי</span><span>המראה 14:15</span><span>נחיתה 16:15</span></div>
+            <div class="leg-rows"><span>תאריך ושעות - לעדכון</span></div>
             <div class="leg-sub">טיסה לדוגמה</div>
         </div>
     </section>
@@ -359,12 +359,12 @@ foreach (glob(__DIR__ . '/assets/hotel/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
         <div class="acc-body">
             <div class="flight-leg">
                 <div class="leg-head">הלוך · תל אביב ← ברצלונה</div>
-                <div class="leg-rows"><span>1 ביולי</span><span>המראה 10:00</span><span>נחיתה 12:15</span></div>
+                <div class="leg-rows"><span>תאריך ושעות - לעדכון</span></div>
                 <div class="leg-sub">טיסה לדוגמה · טרמינל 1</div>
             </div>
             <div class="flight-leg">
                 <div class="leg-head">חזור · ברצלונה ← תל אביב</div>
-                <div class="leg-rows"><span>5 ביולי</span><span>המראה 14:15</span><span>נחיתה 16:15</span></div>
+                <div class="leg-rows"><span>תאריך ושעות - לעדכון</span></div>
                 <div class="leg-sub">טיסה לדוגמה</div>
             </div>
         </div>
