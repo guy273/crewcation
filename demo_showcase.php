@@ -66,12 +66,12 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         /* הילת ניאון רכה - עותק מטושטש של אותה טבעת מסתובבת, נושם עדין */
         .demo-play::before { content: ''; position: absolute; inset: -4px; border-radius: inherit; z-index: -1;
             background: conic-gradient(from var(--dp-spin), transparent 0deg, var(--gold-bright) 55deg, var(--gold) 105deg, transparent 190deg, transparent 360deg);
-            filter: blur(11px); opacity: .5; animation: dp-breathe 3.6s ease-in-out infinite; }
+            filter: blur(13px); opacity: .16; animation: dp-breathe 4s ease-in-out infinite; }
         @keyframes dp-spin { to { --dp-spin: 360deg; } }
-        @keyframes dp-breathe { 0%,100% { opacity: .38; } 50% { opacity: .62; } }
+        @keyframes dp-breathe { 0%,100% { opacity: .1; } 50% { opacity: .22; } }
         .demo-play svg { width: 14px; height: 14px; }
         .demo-play:hover { transform: translateY(-2px); filter: brightness(1.12); }
-        .demo-play:hover::before { opacity: .72; }
+        .demo-play:hover::before { opacity: .32; }
         .demo-play:active { transform: scale(.97); }
         @media (prefers-reduced-motion: reduce) { .demo-play::before { animation: none; } }
         @media (prefers-reduced-motion: reduce) { .demo-play { animation: none; } }
@@ -128,7 +128,8 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         }
 
         @media (max-width: 900px) {
-            .pg { padding-bottom: 100px; }                 /* מקום לכפתור הצף */
+            .pg { padding-bottom: 132px; }                 /* מקום לכפתור הצף + הקרדיט מעליו */
+            .pg-foot { margin-bottom: 12px; }              /* הקרדיט לא נחתך ע"י הכפתור הצף */
             .pg-body { grid-template-columns: 1fr; gap: 26px; align-items: start; }
             .pg-stage { order: -1; gap: 0; }
             .pg-panel { max-width: 460px; margin: 0 auto; width: 100%; align-self: auto; }
