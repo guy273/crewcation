@@ -50,22 +50,28 @@
             if (p && p.left) { el.style.left = p.left; el.style.top = p.top; el.style.right = 'auto'; el.style.bottom = 'auto'; el.style.transform = 'none'; }
         } catch (e) {}
         var on = false, sx, sy, ox, oy;
-        grip.addEventListener('pointerdown', function (e) {
+        function start(cx, cy) {
             on = true; el.classList.add('dragging');
-            var r = el.getBoundingClientRect(); ox = r.left; oy = r.top; sx = e.clientX; sy = e.clientY;
+            var r = el.getBoundingClientRect(); ox = r.left; oy = r.top; sx = cx; sy = cy;
             el.style.left = ox + 'px'; el.style.top = oy + 'px'; el.style.right = 'auto'; el.style.bottom = 'auto'; el.style.transform = 'none';
-            try { grip.setPointerCapture(e.pointerId); } catch (er) {} e.preventDefault();
-        });
-        grip.addEventListener('pointermove', function (e) {
+        }
+        function move(cx, cy) {
             if (!on) return;
-            var nx = ox + (e.clientX - sx), ny = oy + (e.clientY - sy);
+            var nx = ox + (cx - sx), ny = oy + (cy - sy);
             nx = Math.max(6, Math.min(window.innerWidth - el.offsetWidth - 6, nx));
             ny = Math.max(6, Math.min(window.innerHeight - el.offsetHeight - 6, ny));
             el.style.left = nx + 'px'; el.style.top = ny + 'px';
-        });
+        }
         function end() { if (!on) return; on = false; el.classList.remove('dragging');
             try { localStorage.setItem('cw-demo-pos', JSON.stringify({ left: el.style.left, top: el.style.top })); } catch (e) {} }
-        grip.addEventListener('pointerup', end); grip.addEventListener('pointercancel', end);
+        // עכבר
+        grip.addEventListener('mousedown', function (e) { start(e.clientX, e.clientY); e.preventDefault(); });
+        document.addEventListener('mousemove', function (e) { move(e.clientX, e.clientY); });
+        document.addEventListener('mouseup', end);
+        // מגע
+        grip.addEventListener('touchstart', function (e) { var t = e.touches[0]; start(t.clientX, t.clientY); e.preventDefault(); }, { passive: false });
+        document.addEventListener('touchmove', function (e) { if (on) { var t = e.touches[0]; move(t.clientX, t.clientY); e.preventDefault(); } }, { passive: false });
+        document.addEventListener('touchend', end); document.addEventListener('touchcancel', end);
     })();
 
     // בדמו: כל לינק חיצוני נפתח בטאב חדש (שלא ינווטו החוצה מהדמו)
