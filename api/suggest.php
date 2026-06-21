@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/auth.php';
 
 $user_id = require_login();
+demo_block_writes();
 
 /**
  * Best-effort Open Graph preview fetch. Returns [title, image, site].
@@ -12,6 +13,7 @@ $user_id = require_login();
 function fetch_og(string $url): array {
     $out = ['title' => '', 'image' => '', 'site' => ''];
     if (!preg_match('#^https?://#i', $url)) return $out;
+    if (!url_is_public($url)) return $out; // הגנת SSRF - לא לגעת ב-IP פנימי
 
     $html = '';
     if (function_exists('curl_init')) {

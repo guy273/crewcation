@@ -14,12 +14,12 @@ declare(strict_types=1);
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700;800;900&family=Bricolage+Grotesque:opsz,wght@12..96,300&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css?v=<?= filemtime(__DIR__ . '/assets/style.css') ?>">
     <style>
-        html { scrollbar-gutter: stable; overflow-y: scroll; } /* גוטר קבוע - בלי קפיצת סקרולר */
+        html { scrollbar-gutter: stable; }
         html, body { margin: 0; min-height: 100%; }
         body { font-family: 'Noto Sans Hebrew', sans-serif; color: var(--text);
             background: linear-gradient(180deg, #0a0a0f 0%, #060608 100%); }
 
-        .pg { position: relative; min-height: 100vh; box-sizing: border-box;
+        .pg { position: relative; height: 100vh; overflow: hidden; box-sizing: border-box;
             padding: 30px clamp(20px, 5vw, 64px) 24px; display: flex; flex-direction: column; gap: clamp(18px, 2.6vh, 30px); }
         /* בלוב צהוב/אקסנט נע ברקע - מתחלף עם הצבע */
         .pg::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;

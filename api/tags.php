@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/auth.php';
 
 $user_id = require_login();
+demo_block_writes();
 $db = get_db();
 $db->exec("CREATE TABLE IF NOT EXISTS member_tags (user_id TEXT NOT NULL, tag TEXT NOT NULL)");
 

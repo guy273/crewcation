@@ -27,6 +27,27 @@ function uploads_blocked(): bool {
     return demo_mode();
 }
 
+// בדמו: חוסם פעולות כתיבה בצד השרת - מונע ספאם/ניצול גם אם עוקפים את הצד-לקוח (curl ישיר).
+function demo_block_writes(): void {
+    if (demo_mode() && ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
+        json_error('זה דמו - פעולות שמירה כבויות 🙂', 403);
+    }
+}
+
+// הגנת SSRF: ה-host חייב להצביע ל-IP ציבורי בלבד (חוסם localhost/רשת פנימית/reserved).
+function url_is_public(string $url): bool {
+    $host = parse_url($url, PHP_URL_HOST);
+    if (!$host) return false;
+    $ips = @gethostbynamel($host);
+    if (!$ips) return false;
+    foreach ($ips as $ip) {
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+            return false;
+        }
+    }
+    return true;
+}
+
 // בדמו: מתג שלב (לפני הטיסה / במהלך הטיול) דרך ?phase או ?simday, נשמר בסשן.
 // מחזיר את "יום הטיול" המדומה: 0 = לפני, 3 = במהלך. null אם לא בדמו.
 function demo_sim_day(): ?int {

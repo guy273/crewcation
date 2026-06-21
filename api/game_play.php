@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/auth.php';
 
 $user_id = require_login();
+demo_block_writes();
 $db = get_db();
 $db->exec("CREATE TABLE IF NOT EXISTS game_plays (game TEXT NOT NULL, user_id TEXT NOT NULL, plays INTEGER DEFAULT 0, UNIQUE(game, user_id))");
 

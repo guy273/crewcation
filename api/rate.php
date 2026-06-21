@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/auth.php';
 
 $user_id = require_login();
+demo_block_writes();
 
 // היום הנוכחי של הטיול (1..5), 0 אם עוד לא התחיל
 function trip_day_now(): int {
