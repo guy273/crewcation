@@ -128,9 +128,9 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         }
 
         @media (max-width: 900px) {
-            .pg { padding-bottom: 132px; }                 /* מקום לכפתור הצף + הקרדיט מעליו */
-            .pg-foot { margin-bottom: 12px; }              /* הקרדיט לא נחתך ע"י הכפתור הצף */
-            .pg-body { grid-template-columns: 1fr; gap: 26px; align-items: start; }
+            .pg { padding-bottom: 158px; }                 /* מקום לכפתור הצף + הקרדיט הרחק מעליו */
+            .pg-foot { margin-bottom: 22px; }              /* הקרדיט לא נוגע בכפתור הצף */
+            .pg-body { grid-template-columns: 1fr; gap: 26px; align-items: start; z-index: 2; }  /* הכפתור הצף (בתוכו) נצבע מעל הקרדיט, לא להפך */
             .pg-stage { order: -1; gap: 0; }
             .pg-panel { max-width: 460px; margin: 0 auto; width: 100%; align-self: auto; }
             /* במובייל - בלי מסגרת טלפון, פשוט מלבן עם פינות מעוגלות */
