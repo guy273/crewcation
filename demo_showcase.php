@@ -55,7 +55,7 @@ declare(strict_types=1);
         .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 43px; background: #06060a; display: block; transition: opacity .16s ease; }
 
         /* פאנל ימני */
-        .pg-panel { display: flex; flex-direction: column; gap: 26px; padding-top: 6px; }
+        .pg-panel { display: flex; flex-direction: column; gap: 26px; padding-top: 6px; align-self: center; } /* ממורכז אנכית ממול הדמו */
         .pg-acc { margin-top: 14px; }
         .ctrl-group { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
         .ctrl-label { font-size: .8rem; color: var(--gold-light); font-weight: 600; letter-spacing: .02em; }
@@ -163,7 +163,7 @@ declare(strict_types=1);
 
                 <div class="pg-acc">
                     <?php $chev = '<span class="acc-chevron"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>'; ?>
-                    <details class="acc" open>
+                    <details class="acc">
                         <summary><span class="acc-title">מה זה?</span><?= $chev ?></summary>
                         <div class="acc-body">כל טיול חבר'ה ראוי לאפליקציה משלו. מתכננים יחד לאן הולכים בכל יום, סופרים לאחור לטיסה, מעלים תמונות ומשחקים - ובמהלך הטיול מצביעים, מדרגים ומתעדים הכל. מוצר אחד שחי איתכם מהרגע שקנו את הכרטיסים ועד הנחיתה בחזרה.</div>
                     </details>
