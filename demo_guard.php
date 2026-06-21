@@ -12,8 +12,8 @@
 </style>
 <div class="demo-phase" aria-label="מצב הדגמה">
     <span class="dp-tag">הדגמה</span>
-    <a class="dp-btn <?= $__ph !== 'during' ? 'active' : '' ?>" href="app.php?phase=before">לפני הטיסה</a>
-    <a class="dp-btn <?= $__ph === 'during' ? 'active' : '' ?>" href="app.php?phase=during">יום הטיסה</a>
+    <a class="dp-btn <?= $__ph !== 'during' ? 'active' : '' ?>" href="/demo?phase=before">לפני הטיסה</a>
+    <a class="dp-btn <?= $__ph === 'during' ? 'active' : '' ?>" href="/demo?phase=during">יום הטיסה</a>
 </div>
 <div id="demoModal" class="demo-modal" onclick="this.classList.remove('show')">
     <div class="demo-modal-card" onclick="event.stopPropagation()">

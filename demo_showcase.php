@@ -188,7 +188,7 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
                 <div class="phone">
                     <img id="screenImg" class="phone-screen" src="assets/demo-screen-gold.jpg?v=<?= $v ?>" alt="<?= htmlspecialchars(APP_NAME) ?>">
                 </div>
-                <a class="demo-play" href="demo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> שחקו עם הדמו</a>
+                <a class="demo-play" href="/demo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> שחקו עם הדמו</a>
             </div>
         </div>
 
