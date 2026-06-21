@@ -23,6 +23,17 @@
         }
         return _fetch.apply(this, arguments);
     };
+
+    // בדמו: כל לינק חיצוני נפתח בטאב חדש (שלא ינווטו החוצה מהדמו)
+    document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (/^https?:\/\//i.test(href) && a.host && a.host !== location.host && a.target !== '_blank') {
+            e.preventDefault();
+            window.open(href, '_blank', 'noopener');
+        }
+    }, true);
 })();
 </script>
 <?php endif; ?>
