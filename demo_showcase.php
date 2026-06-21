@@ -139,7 +139,7 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
                     <?php $chev = '<span class="acc-chevron"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>'; ?>
                     <details class="acc">
                         <summary><span class="acc-title">מה זה?</span><?= $chev ?></summary>
-                        <div class="acc-body">כל טיול חבר'ה ראוי לאפליקציה משלו. מתכננים יחד לאן הולכים בכל יום, סופרים לאחור לטיסה, מעלים תמונות ומשחקים - ובמהלך הטיול מצביעים, מדרגים ומתעדים הכל. מוצר אחד שחי איתכם מהרגע שקנו את הכרטיסים ועד הנחיתה בחזרה.</div>
+                        <div class="acc-body">אפליקציה לטיול של חבר'ה - בעיקר למסיבות רווקים ורווקות (אופי המשחקים מכוון לשם), אבל מתאימה לכל טיול חבורה. מתכננים יחד לאן הולכים בכל יום, סופרים לאחור לטיסה, מעלים תמונות ומשחקים - ובמהלך הטיול מצביעים, מדרגים ומתעדים הכל. מוצר אחד שחי איתכם מהרגע שקניתם כרטיסים ועד הנחיתה בחזרה.</div>
                     </details>
                     <details class="acc">
                         <summary><span class="acc-title">הפיצ'רים</span><?= $chev ?></summary>
