@@ -247,10 +247,8 @@ declare(strict_types=1);
                 var doc = frame.contentDocument;
                 if (doc && !doc.getElementById('cwNoScroll')) {
                     var st = doc.createElement('style'); st.id = 'cwNoScroll';
-                    st.textContent = 'html{scrollbar-width:none}body::-webkit-scrollbar,html::-webkit-scrollbar{width:0;height:0;display:none}'
-                        + '.app-header{padding-top:12px}'           /* מרווח מהמסגרת/נוץ' */
-                        + '.logo-crown{width:26px;height:26px}'      /* לוגו קטן יותר במוקאפ */
-                        + '.logo-area h1{font-size:1.05rem}';
+                    // הקטנה אחידה (zoom) - הכל קטן ומרווח, בלי לשבור את הלייאאוט; + הסתרת סקרולר
+                    st.textContent = 'html{zoom:0.86;scrollbar-width:none}body::-webkit-scrollbar,html::-webkit-scrollbar{width:0;height:0;display:none}';
                     doc.head.appendChild(st);
                 }
             } catch (e) {}
