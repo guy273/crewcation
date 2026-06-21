@@ -11,10 +11,10 @@ declare(strict_types=1);
     <link rel="icon" type="image/svg+xml" href="assets/crown.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700;800;900&family=Bricolage+Grotesque:opsz,wght@12..96,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700;800;900&family=Bricolage+Grotesque:opsz,wght@12..96,300&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css?v=<?= filemtime(__DIR__ . '/assets/style.css') ?>">
     <style>
-        html { scrollbar-gutter: stable; }
+        html { scrollbar-gutter: stable; overflow-y: scroll; } /* גוטר קבוע - בלי קפיצת סקרולר */
         html, body { margin: 0; min-height: 100%; }
         body { font-family: 'Noto Sans Hebrew', sans-serif; color: var(--text);
             background: linear-gradient(180deg, #0a0a0f 0%, #060608 100%); }
@@ -38,7 +38,7 @@ declare(strict_types=1);
             max-width: 1240px; width: 100%; margin: 0 auto; }
         .pg-brand { display: flex; align-items: center; gap: 11px; }
         .pg-crown { width: 38px; height: 38px; filter: drop-shadow(0 0 14px var(--gold-glow)); }
-        .pg-title { font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 800; margin: 0; letter-spacing: -0.5px;
+        .pg-title { font-family: 'Space Grotesk', 'Noto Sans Hebrew', sans-serif; font-size: clamp(1.6rem, 2.8vw, 2.3rem); font-weight: 700; margin: 0; letter-spacing: -1px;
             background: var(--grad-gold-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
         .pg-sub { color: rgba(255,255,255,0.82); font-weight: 400; font-size: clamp(.85rem, 1.2vw, .98rem); margin: 0; }
 
@@ -80,17 +80,24 @@ declare(strict_types=1);
         .pg-acc .acc-body li { margin: 5px 0; }
         .pg-acc .acc-body code { background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 6px; font-size: .85em; font-weight: 400; }
 
-        /* לינקים - קלאס, אייקונים SVG */
-        .pg-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+        /* לינקים - קפסולות, אייקונים SVG */
+        .pg-links-wrap { margin-top: 26px; }
+        .pg-links-intro { font-size: .86rem; color: rgba(255,255,255,0.7); font-weight: 400; margin: 0 0 12px; line-height: 1.6; }
+        .pg-links { display: flex; gap: 12px; flex-wrap: wrap; }
         .pg-link { flex: 1; min-width: 150px; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
-            text-decoration: none; padding: 13px 16px; border-radius: var(--radius-md); font-weight: 500; font-size: .92rem;
+            text-decoration: none; padding: 13px 18px; border-radius: var(--radius-pill); font-weight: 500; font-size: .92rem;
             color: var(--text); border: 1px solid var(--border);
             background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
             transition: border-color .18s, color .18s, transform .12s, box-shadow .18s; white-space: nowrap; }
         .pg-link svg { width: 18px; height: 18px; flex: none; }
         .pg-link:hover { border-color: var(--border-gold-strong); color: var(--gold-light); transform: translateY(-1px); box-shadow: var(--glow-gold-sm); }
-        .pg-link.primary { color: #1a1505; background: var(--grad-gold); border-color: transparent; font-weight: 600; }
-        .pg-link.primary:hover { color: #1a1505; box-shadow: var(--glow-gold); }
+        /* היררכיה גבוהה: זוהר בגוון הנבחר + תזוזה עדינה */
+        .pg-link.primary { color: #1a1505; background: var(--grad-gold); border-color: transparent; font-weight: 600;
+            box-shadow: 0 0 22px rgba(var(--accent-rgb), 0.4), 0 0 0 1px rgba(var(--accent-rgb), 0.15);
+            animation: pg-btn-float 4.5s ease-in-out infinite; }
+        .pg-link.primary:hover { color: #1a1505; box-shadow: 0 0 34px rgba(var(--accent-rgb), 0.55); transform: translateY(-2px); }
+        @keyframes pg-btn-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+        @media (prefers-reduced-motion: reduce) { .pg-link.primary{animation:none} }
 
         /* קרדיט ריזולב - מרכז למטה, לוגו + אנימציה פסיכדלית */
         .pg-foot { display: flex; justify-content: center; padding-top: 6px; }
@@ -185,6 +192,8 @@ declare(strict_types=1);
                     </details>
                 </div>
 
+                <div class="pg-links-wrap">
+                <p class="pg-links-intro">אהבתם? הכל קוד פתוח. קחו את הקוד, שנו, והקימו לעצמכם - או צללו למדריך המארגן.</p>
                 <div class="pg-links">
                     <a class="pg-link primary" href="https://github.com/guy273/crewcation" target="_blank" rel="noopener">
                         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.7c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.4 18 4.7 18 4.7c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
@@ -194,6 +203,7 @@ declare(strict_types=1);
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                         מדריך המארגן
                     </a>
+                </div>
                 </div>
             </aside>
 
