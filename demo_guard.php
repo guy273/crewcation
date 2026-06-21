@@ -8,14 +8,11 @@
 .demo-phase .dp-tag { font-size: .66rem; color: var(--gold-light); font-weight: 600; padding: 0 8px; white-space: nowrap; cursor: grab; user-select: none; display: inline-flex; align-items: center; gap: 4px; touch-action: none; }
 .demo-phase .dp-tag::before { content: '⠿'; font-size: .9rem; opacity: .7; }
 .demo-phase.dragging { cursor: grabbing; }
-/* טיפ "הוסף למסך הבית" - מופיע בתוך הדמו במובייל, פעם אחת. מרוכך, בלי בולד/צהוב */
-.a2hs-tip { position: fixed; left: 12px; right: 12px; bottom: calc(78px + env(safe-area-inset-bottom)); z-index: 70;
-    display: none; align-items: center; gap: 10px; padding: 12px 14px;
-    background: rgba(14,14,20,0.96); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.a2hs-tip.show { display: flex; }
-.a2hs-tip p { margin: 0; font-size: .82rem; font-weight: 400; line-height: 1.55; color: rgba(255,255,255,0.86); flex: 1; }
-.a2hs-tip-x { flex: none; background: none; border: 0; color: rgba(255,255,255,0.5); font-size: 1.4rem; line-height: 1; cursor: pointer; padding: 0 2px; }
+/* כפתור סגירה (×) לפופאפ הדמו */
+.demo-modal-card { position: relative; }
+.dm-x { position: absolute; top: 12px; inset-inline-start: 14px; background: none; border: 0;
+    color: rgba(255,255,255,0.45); font-size: 1.5rem; line-height: 1; cursor: pointer; padding: 0; }
+.dm-x:hover { color: rgba(255,255,255,0.8); }
 .demo-phase .dp-btn { font-size: .8rem; font-weight: 600; text-decoration: none; color: var(--text-muted);
     padding: 7px 15px; border-radius: 100px; white-space: nowrap; transition: all .2s; }
 .demo-phase .dp-btn.active { background: var(--grad-gold); color: #1a1505; }
@@ -33,9 +30,14 @@
         <button class="dm-btn" type="button" onclick="document.getElementById('demoModal').classList.remove('show')">הבנתי</button>
     </div>
 </div>
-<div id="a2hsTip" class="a2hs-tip">
-    <p>טיפ: הוסיפו את הדמו למסך הבית - כפתור השיתוף בדפדפן, ואז "הוסף למסך הבית". פותח את האפליקציה ישירות בכל פעם.</p>
-    <button class="a2hs-tip-x" type="button" aria-label="סגירה">&times;</button>
+<div id="a2hsTip" class="demo-modal">
+    <div class="demo-modal-card" onclick="event.stopPropagation()">
+        <button class="dm-x" type="button" id="a2hsX" aria-label="סגירה">&times;</button>
+        <div class="dm-emoji">📲</div>
+        <p class="dm-title">הוסיפו למסך הבית</p>
+        <p class="dm-sub">לחוויה חלקה יותר - מסך מלא ופתיחה בלחיצה: כפתור השיתוף בדפדפן, ואז "הוסף למסך הבית".</p>
+        <button class="dm-btn" type="button" id="a2hsOk">הבנתי</button>
+    </div>
 </div>
 <script>
 (function () {
@@ -86,16 +88,21 @@
         document.addEventListener('touchend', end); document.addEventListener('touchcancel', end);
     })();
 
-    // טיפ "הוסף למסך הבית" - מובייל, פעם אחת, ולא כשכבר במצב standalone
+    // פופאפ "הוסף למסך הבית" - מובייל, פעם אחת בלבד, ולא כשכבר רץ כאפליקציה (standalone)
     (function () {
-        var tip = document.getElementById('a2hsTip'); if (!tip) return;
+        var pop = document.getElementById('a2hsTip'); if (!pop) return;
         var mobile = window.matchMedia('(max-width: 768px)').matches || (('ontouchstart' in window) && window.matchMedia('(pointer: coarse)').matches);
         var standalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
         var seen; try { seen = localStorage.getItem('cw-a2hs'); } catch (e) {}
-        if (mobile && !standalone && !seen) { setTimeout(function () { tip.classList.add('show'); }, 1000); }
-        tip.querySelector('.a2hs-tip-x').addEventListener('click', function () {
-            tip.classList.remove('show'); try { localStorage.setItem('cw-a2hs', '1'); } catch (e) {}
-        });
+        function dismiss() { pop.classList.remove('show'); }
+        if (mobile && !standalone && !seen) {
+            try { localStorage.setItem('cw-a2hs', '1'); } catch (e) {}   // מסומן מיד - לא יקפוץ שוב לעולם
+            setTimeout(function () { pop.classList.add('show'); }, 900);
+        }
+        var ok = document.getElementById('a2hsOk'), x = document.getElementById('a2hsX');
+        if (ok) ok.addEventListener('click', dismiss);
+        if (x) x.addEventListener('click', dismiss);
+        pop.addEventListener('click', function (e) { if (e.target === pop) dismiss(); });
     })();
 
     // בדמו: כל לינק חיצוני נפתח בטאב חדש (שלא ינווטו החוצה מהדמו)
