@@ -43,7 +43,7 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
 
         .pg-body { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(320px, 440px) 1fr;
             gap: clamp(28px, 5vw, 80px); align-items: center; max-width: 1240px; width: 100%; margin: 0 auto; }
-        .pg-stage { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 32px; }
+        .pg-stage { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 48px; }
 
         /* מוקאפ טלפון סטטי */
         .phone { height: min(1040px, calc(100vh - 235px)); aspect-ratio: 390 / 844; position: relative;
@@ -54,10 +54,11 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         .phone-screen { width: 100%; height: 100%; border: 0; border-radius: 43px; background: #06060a; display: block;
             object-fit: cover; object-position: top; transition: opacity .2s ease; }
 
-        .demo-play { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; padding: 17px 48px;
-            border-radius: var(--radius-pill); background: var(--grad-gold); color: #1a1505; font-weight: 800; font-size: 1.12rem;
-            box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.55), 0 6px 20px rgba(0,0,0,0.4); transition: transform .12s, box-shadow .2s; }
-        .demo-play:hover { box-shadow: 0 0 44px rgba(var(--accent-rgb), 0.7); transform: translateY(-2px); }
+        .demo-play { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; padding: 14px 40px;
+            border-radius: var(--radius-pill); background: rgba(255,255,255,0.03); color: var(--gold-light);
+            border: 1.5px solid var(--gold); font-weight: 700; font-size: 1.02rem; transition: background .18s, transform .12s, box-shadow .2s; }
+        .demo-play svg { width: 14px; height: 14px; }
+        .demo-play:hover { background: var(--gold-dim); box-shadow: var(--glow-gold-sm); transform: translateY(-2px); }
         .demo-play:active { transform: scale(.97); }
 
         /* פאנל ימני */
@@ -116,8 +117,9 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
             .ctrl-group { align-items: center; }
             /* כפתור צף קבוע בתחתית המסך, מעל התוכן */
             .demo-play { position: fixed; bottom: calc(14px + env(safe-area-inset-bottom)); left: 16px; right: 16px;
-                justify-content: center; z-index: 60; padding: 17px; font-size: 1.1rem;
-                box-shadow: 0 8px 30px rgba(0,0,0,0.55), 0 0 30px rgba(var(--accent-rgb), 0.55); }
+                justify-content: center; z-index: 60; padding: 16px; font-size: 1.05rem;
+                background: rgba(10,10,16,0.94); backdrop-filter: blur(10px);
+                box-shadow: 0 8px 30px rgba(0,0,0,0.6); }
         }
     </style>
 </head>
@@ -128,21 +130,11 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
                 <svg class="pg-crown" viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" d="M18 70 L14 34 L32 48 L50 22 L68 48 L86 34 L82 70 Z"/><rect x="18" y="72" width="64" height="9" rx="2" fill="currentColor"/><circle cx="14" cy="32" r="5" fill="currentColor"/><circle cx="50" cy="20" r="5.5" fill="currentColor"/><circle cx="86" cy="32" r="5" fill="currentColor"/></svg>
                 <h1 class="pg-title"><?= htmlspecialchars(APP_NAME) ?></h1>
             </div>
-            <p class="pg-sub">אפליקציית טיול חבר'ה. הציצו, החליפו צבע, ושחקו עם הדמו המלא.</p>
+            <p class="pg-sub">אפליקציית טיול חבר'ה. הציצו, ושחקו עם הדמו המלא.</p>
         </header>
 
         <div class="pg-body">
             <aside class="pg-panel">
-                <div class="ctrl-group">
-                    <span class="ctrl-label">צבע</span>
-                    <div class="swatches" id="themePicker">
-                        <button class="theme-dot t-gold active"   data-theme="gold"   aria-label="זהב"></button>
-                        <button class="theme-dot t-pink"          data-theme="pink"   aria-label="ורוד"></button>
-                        <button class="theme-dot t-purple"        data-theme="purple" aria-label="סגול"></button>
-                        <button class="theme-dot t-sky"           data-theme="sky"    aria-label="תכלת"></button>
-                    </div>
-                </div>
-
                 <div class="pg-acc">
                     <?php $chev = '<span class="acc-chevron"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>'; ?>
                     <details class="acc">
@@ -194,7 +186,7 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
                 <div class="phone">
                     <img id="screenImg" class="phone-screen" src="assets/demo-screen-gold.jpg?v=<?= $v ?>" alt="<?= htmlspecialchars(APP_NAME) ?>">
                 </div>
-                <a class="demo-play" href="demo" target="_blank" rel="noopener">▶ שחקו עם הדמו</a>
+                <a class="demo-play" href="demo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> שחקו עם הדמו</a>
             </div>
         </div>
 
@@ -208,25 +200,6 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
 
     <script>
     (function () {
-        var pick = document.getElementById('themePicker');
-        var img  = document.getElementById('screenImg');
-        var dots = pick.querySelectorAll('.theme-dot');
-        var V = '<?= $v ?>';
-        var cur = 'gold';
-        try { cur = localStorage.getItem('cw-theme') || 'gold'; } catch (e) {}
-
-        function apply(t) {
-            try { localStorage.setItem('cw-theme', t); } catch (e) {}
-            if (t && t !== 'gold') document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
-            img.style.opacity = '0';
-            var pre = new Image();
-            pre.onload = function () { img.src = pre.src; img.style.opacity = '1'; };
-            pre.src = 'assets/demo-screen-' + t + '.jpg?v=' + V;
-            dots.forEach(function (d) { d.classList.toggle('active', d.dataset.theme === t); });
-        }
-        apply(cur);
-        pick.addEventListener('click', function (e) { var d = e.target.closest('.theme-dot'); if (d) apply(d.dataset.theme); });
-
         var accs = document.querySelectorAll('.pg-acc .acc');
         accs.forEach(function (d) { d.addEventListener('toggle', function () { if (d.open) accs.forEach(function (o) { if (o !== d) o.open = false; }); }); });
     })();
