@@ -40,7 +40,7 @@ declare(strict_types=1);
         .pg-crown { width: 38px; height: 38px; filter: drop-shadow(0 0 14px var(--gold-glow)); }
         .pg-title { font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 800; margin: 0; letter-spacing: -0.5px;
             background: var(--grad-gold-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-        .pg-sub { color: var(--text-muted); font-size: clamp(.85rem, 1.2vw, .98rem); margin: 0; }
+        .pg-sub { color: rgba(255,255,255,0.82); font-weight: 400; font-size: clamp(.85rem, 1.2vw, .98rem); margin: 0; }
 
         .pg-body { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(320px, 440px) 1fr;
             gap: clamp(28px, 5vw, 80px); align-items: start; max-width: 1240px; width: 100%; margin: 0 auto; }
@@ -52,7 +52,7 @@ declare(strict_types=1);
             box-shadow: 0 36px 80px rgba(0,0,0,.7), 0 0 0 2px #1c1c24, 0 0 0 13px #0c0c11, 0 0 0 15px #24242e; }
         .phone::before { content: ''; position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
             width: 122px; height: 27px; background: #050507; border-radius: 16px; z-index: 3; }
-        .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 43px; background: #06060a; display: block; }
+        .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 43px; background: #06060a; display: block; transition: opacity .3s ease; }
 
         /* פאנל ימני */
         .pg-panel { display: flex; flex-direction: column; gap: 26px; padding-top: 6px; }
@@ -237,19 +237,25 @@ declare(strict_types=1);
                 var doc = frame.contentDocument;
                 if (doc && !doc.getElementById('cwNoScroll')) {
                     var st = doc.createElement('style'); st.id = 'cwNoScroll';
-                    st.textContent = 'html{scrollbar-width:none}body::-webkit-scrollbar,html::-webkit-scrollbar{width:0;height:0;display:none}';
+                    st.textContent = 'html{scrollbar-width:none}body::-webkit-scrollbar,html::-webkit-scrollbar{width:0;height:0;display:none}'
+                        + '.app-header{padding-top:12px}'           /* מרווח מהמסגרת/נוץ' */
+                        + '.logo-crown{width:26px;height:26px}'      /* לוגו קטן יותר במוקאפ */
+                        + '.logo-area h1{font-size:1.05rem}';
                     doc.head.appendChild(st);
                 }
             } catch (e) {}
             paintFrame(localStorage.getItem('cw-theme') || 'gold');
+            frame.style.opacity = '1'; // fade-in נקי
         });
         pick.addEventListener('click', function (e) { var d = e.target.closest('.theme-dot'); if (d) apply(d.dataset.theme); });
 
         var toggle = document.getElementById('phaseToggle');
         toggle.addEventListener('click', function (e) {
-            var b = e.target.closest('.phase-btn'); if (!b) return;
+            var b = e.target.closest('.phase-btn'); if (!b || b.classList.contains('active')) return;
             toggle.querySelectorAll('.phase-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
-            frame.src = 'app.php?phase=' + b.dataset.phase;
+            var ph = b.dataset.phase;
+            frame.style.opacity = '0';                  // fade-out
+            setTimeout(function () { frame.src = 'app.php?phase=' + ph; }, 230);
         });
 
         var accs = document.querySelectorAll('.pg-acc .acc');

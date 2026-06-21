@@ -9,6 +9,8 @@ if ($hp_locked): ?>
     <?= icon('image', 'i') ?>
     <span class="hdr-soon-label">בקרוב</span>
 </button>
+<?php elseif (demo_mode()): ?>
+<button class="hdr-photo" onclick="document.getElementById('demoModal')&&document.getElementById('demoModal').classList.add('show')" aria-label="התמונה היומית"><?= icon('image', 'i') ?><span class="hdr-photo-plus">+</span></button>
 <?php elseif (basename($_SERVER['SCRIPT_NAME']) === 'app.php'): ?>
 <button class="hdr-photo" onclick="triggerDailyUpload()" aria-label="העלאת תמונה"><?= icon('image', 'i') ?><span class="hdr-photo-plus" id="hdrQuota">+</span></button>
 <?php else: ?>
