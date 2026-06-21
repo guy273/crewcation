@@ -96,15 +96,15 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         .resolve-credit { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; opacity: .85; transition: opacity .28s ease; }
         .resolve-credit:hover { opacity: 1; }
         .resolve-credit__made { font-size: 11px; color: #fff; opacity: .9; }
+        /* גרדיאנט המותג האמיתי של ריזולב - acid/cyan/violet/magenta/sunshine זורם */
         .resolve-credit__wordmark { font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 300; line-height: 1;
-            background: linear-gradient(90deg, #8B8EE0 0%, #FFB089 28%, #B9E8A2 52%, #8B8EE0 76%, #FFB089 100%);
-            background-size: 280% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            animation: resolve-shimmer 32s ease-in-out infinite, resolve-hue 54s ease-in-out infinite; }
-        .resolve-credit__dot { display: inline-block; animation: resolve-hue 40s ease-in-out infinite reverse; }
-        @keyframes resolve-hue { 0%{filter:hue-rotate(0) brightness(1.02) drop-shadow(0 0 10px rgba(139,142,224,0.35))} 50%{filter:hue-rotate(180deg) brightness(1.05) drop-shadow(0 0 14px rgba(185,232,162,0.28))} 100%{filter:hue-rotate(360deg) brightness(1.02) drop-shadow(0 0 10px rgba(139,142,224,0.35))} }
-        @keyframes resolve-shimmer { 0%{background-position:180% center} 50%{background-position:-180% center} 100%{background-position:180% center} }
+            background-image: linear-gradient(90deg, #C3E85B, #4AE8FF, #B19EFF, #FF6FB4, #FFE74C, #C3E85B);
+            background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+            animation: resolve-flow 12s linear infinite; }
+        .resolve-credit__dot { display: inline-block; }
+        @keyframes resolve-flow { 0%{background-position:0% 50%} 100%{background-position:300% 50%} }
         @media (prefers-reduced-motion: reduce) {
-            .resolve-credit__wordmark,.resolve-credit__dot{animation:none;background:none;-webkit-text-fill-color:#8B8EE0}
+            .resolve-credit__wordmark{animation:none;background:none;-webkit-text-fill-color:#B19EFF;color:#B19EFF}
             .pg::before{animation:none}
         }
 

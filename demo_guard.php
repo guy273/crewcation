@@ -5,7 +5,9 @@
     z-index: 45; display: inline-flex; align-items: center; gap: 6px; padding: 5px;
     background: rgba(10,10,16,0.92); backdrop-filter: blur(12px); border: 1px solid var(--border-gold);
     border-radius: 100px; box-shadow: 0 8px 26px rgba(0,0,0,0.5); }
-.demo-phase .dp-tag { font-size: .66rem; color: var(--gold-light); font-weight: 600; padding: 0 6px; white-space: nowrap; }
+.demo-phase .dp-tag { font-size: .66rem; color: var(--gold-light); font-weight: 600; padding: 0 8px; white-space: nowrap; cursor: grab; user-select: none; display: inline-flex; align-items: center; gap: 4px; touch-action: none; }
+.demo-phase .dp-tag::before { content: '⠿'; font-size: .9rem; opacity: .7; }
+.demo-phase.dragging { cursor: grabbing; }
 .demo-phase .dp-btn { font-size: .8rem; font-weight: 600; text-decoration: none; color: var(--text-muted);
     padding: 7px 15px; border-radius: 100px; white-space: nowrap; transition: all .2s; }
 .demo-phase .dp-btn.active { background: var(--grad-gold); color: #1a1505; }
@@ -39,6 +41,32 @@
         }
         return _fetch.apply(this, arguments);
     };
+
+    // מתג ההדגמה - נגרר לכל פינה (הידית = התווית "הדגמה"), המיקום נשמר
+    (function () {
+        var el = document.querySelector('.demo-phase'); if (!el) return;
+        var grip = el.querySelector('.dp-tag'); if (!grip) return;
+        try { var p = JSON.parse(localStorage.getItem('cw-demo-pos') || 'null');
+            if (p && p.left) { el.style.left = p.left; el.style.top = p.top; el.style.right = 'auto'; el.style.bottom = 'auto'; el.style.transform = 'none'; }
+        } catch (e) {}
+        var on = false, sx, sy, ox, oy;
+        grip.addEventListener('pointerdown', function (e) {
+            on = true; el.classList.add('dragging');
+            var r = el.getBoundingClientRect(); ox = r.left; oy = r.top; sx = e.clientX; sy = e.clientY;
+            el.style.left = ox + 'px'; el.style.top = oy + 'px'; el.style.right = 'auto'; el.style.bottom = 'auto'; el.style.transform = 'none';
+            try { grip.setPointerCapture(e.pointerId); } catch (er) {} e.preventDefault();
+        });
+        grip.addEventListener('pointermove', function (e) {
+            if (!on) return;
+            var nx = ox + (e.clientX - sx), ny = oy + (e.clientY - sy);
+            nx = Math.max(6, Math.min(window.innerWidth - el.offsetWidth - 6, nx));
+            ny = Math.max(6, Math.min(window.innerHeight - el.offsetHeight - 6, ny));
+            el.style.left = nx + 'px'; el.style.top = ny + 'px';
+        });
+        function end() { if (!on) return; on = false; el.classList.remove('dragging');
+            try { localStorage.setItem('cw-demo-pos', JSON.stringify({ left: el.style.left, top: el.style.top })); } catch (e) {} }
+        grip.addEventListener('pointerup', end); grip.addEventListener('pointercancel', end);
+    })();
 
     // בדמו: כל לינק חיצוני נפתח בטאב חדש (שלא ינווטו החוצה מהדמו)
     document.addEventListener('click', function (e) {
