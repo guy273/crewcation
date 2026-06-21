@@ -122,6 +122,7 @@ declare(strict_types=1);
         }
 
         @media (max-width: 900px) {
+            .pg { height: auto; min-height: 100vh; overflow: visible; } /* מובייל: גלילה רגילה, בלי חיתוך */
             .pg-body { grid-template-columns: 1fr; gap: 28px; }
             .pg-stage { order: -1; }
             .pg-panel { max-width: 460px; margin: 0 auto; width: 100%; }
