@@ -9,6 +9,9 @@
 
     # Block direct access to /data/
     RewriteRule ^data/ - [F,L]
+
+    # /demo -> האפליקציה המלאה (חוויה אינטראקטיבית במסך מלא)
+    RewriteRule ^demo/?$ app.php [L,QSA]
 </IfModule>
 
 # Security headers
