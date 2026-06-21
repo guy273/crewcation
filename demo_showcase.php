@@ -44,7 +44,11 @@ declare(strict_types=1);
 
         .pg-body { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(320px, 440px) 1fr;
             gap: clamp(28px, 5vw, 80px); align-items: start; max-width: 1240px; width: 100%; margin: 0 auto; }
-        .pg-stage { display: flex; justify-content: center; align-items: flex-start; }
+        .pg-stage { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; }
+        .demo-play { display: none; align-items: center; gap: 9px; text-decoration: none; padding: 14px 30px;
+            border-radius: var(--radius-pill); background: var(--grad-gold); color: #1a1505; font-weight: 700; font-size: 1rem;
+            box-shadow: 0 0 24px rgba(var(--accent-rgb), 0.45); }
+        .demo-play:active { transform: scale(.97); }
 
         /* מוקאפ טלפון - רחב */
         .phone { height: min(1120px, calc(100vh - 215px)); aspect-ratio: 390 / 844; position: relative;
@@ -125,6 +129,9 @@ declare(strict_types=1);
             .pg { height: auto; min-height: 100vh; overflow: visible; } /* מובייל: גלילה רגילה, בלי חיתוך */
             .pg-body { grid-template-columns: 1fr; gap: 28px; }
             .pg-stage { order: -1; }
+            .phone iframe { pointer-events: none; }   /* מובייל: מוקאפ לתצוגה, לא משחקי */
+            .demo-play { display: inline-flex; }       /* כפתור פתיחה במסך מלא */
+            .pg-controls { display: none; }            /* בקרות מוסתרות במובייל (משחקים בטאב המלא) */
             .pg-panel { max-width: 460px; margin: 0 auto; width: 100%; }
             .phone { height: 72vh; }
             .pg-head { align-items: center; text-align: center; }
@@ -212,6 +219,7 @@ declare(strict_types=1);
                 <div class="phone">
                     <iframe id="appFrame" src="app.php?phase=before" title="<?= htmlspecialchars(APP_NAME) ?>"></iframe>
                 </div>
+                <a class="demo-play" href="app.php?phase=before" target="_blank" rel="noopener">▶ שחקו עם הדמו</a>
             </div>
         </div>
 
