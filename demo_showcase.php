@@ -43,7 +43,7 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
 
         .pg-body { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(320px, 440px) 1fr;
             gap: clamp(28px, 5vw, 80px); align-items: center; max-width: 1240px; width: 100%; margin: 0 auto; }
-        .pg-stage { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 22px; }
+        .pg-stage { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 32px; }
 
         /* מוקאפ טלפון סטטי */
         .phone { height: min(1040px, calc(100vh - 235px)); aspect-ratio: 390 / 844; position: relative;
@@ -54,10 +54,10 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         .phone-screen { width: 100%; height: 100%; border: 0; border-radius: 43px; background: #06060a; display: block;
             object-fit: cover; object-position: top; transition: opacity .2s ease; }
 
-        .demo-play { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; padding: 14px 32px;
-            border-radius: var(--radius-pill); background: var(--grad-gold); color: #1a1505; font-weight: 700; font-size: 1rem;
-            box-shadow: 0 0 26px rgba(var(--accent-rgb), 0.5); transition: transform .12s, box-shadow .2s; }
-        .demo-play:hover { box-shadow: 0 0 38px rgba(var(--accent-rgb), 0.65); transform: translateY(-1px); }
+        .demo-play { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; padding: 17px 48px;
+            border-radius: var(--radius-pill); background: var(--grad-gold); color: #1a1505; font-weight: 800; font-size: 1.12rem;
+            box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.55), 0 6px 20px rgba(0,0,0,0.4); transition: transform .12s, box-shadow .2s; }
+        .demo-play:hover { box-shadow: 0 0 44px rgba(var(--accent-rgb), 0.7); transform: translateY(-2px); }
         .demo-play:active { transform: scale(.97); }
 
         /* פאנל ימני */
@@ -107,12 +107,17 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         }
 
         @media (max-width: 900px) {
+            .pg { padding-bottom: 100px; }                 /* מקום לכפתור הצף */
             .pg-body { grid-template-columns: 1fr; gap: 26px; }
             .pg-stage { order: -1; }
             .pg-panel { max-width: 460px; margin: 0 auto; width: 100%; align-self: auto; }
             .phone { height: 70vh; }
             .pg-head { align-items: center; text-align: center; }
             .ctrl-group { align-items: center; }
+            /* כפתור צף קבוע בתחתית המסך, מעל התוכן */
+            .demo-play { position: fixed; bottom: calc(14px + env(safe-area-inset-bottom)); left: 16px; right: 16px;
+                justify-content: center; z-index: 60; padding: 17px; font-size: 1.1rem;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.55), 0 0 30px rgba(var(--accent-rgb), 0.55); }
         }
     </style>
 </head>
