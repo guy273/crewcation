@@ -54,19 +54,26 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
         .phone-screen { width: 100%; height: 100%; border: 0; border-radius: 43px; background: #06060a; display: block;
             object-fit: cover; object-position: top; transition: opacity .2s ease; }
 
-        @property --dp-spin { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+        @property --dp-spin { syntax: '<angle>'; initial-value: 0deg; inherits: true; }
         .demo-play { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; padding: 15px 40px;
-            border-radius: var(--radius-pill); color: var(--gold-light); position: relative;
+            border-radius: var(--radius-pill); color: var(--gold-light); position: relative; isolation: isolate;
             border: 2px solid transparent;
             background:
                 linear-gradient(#0c0c11, #0c0c11) padding-box,
                 conic-gradient(from var(--dp-spin), transparent 0deg, var(--gold-bright) 55deg, var(--gold) 105deg, transparent 190deg, transparent 360deg) border-box;
-            font-weight: 700; font-size: 1.02rem; transition: transform .12s, box-shadow .2s, filter .2s;
+            font-weight: 700; font-size: 1.02rem; transition: transform .12s, filter .2s;
             animation: dp-spin 3.6s linear infinite; }
+        /* הילת ניאון רכה - עותק מטושטש של אותה טבעת מסתובבת, נושם עדין */
+        .demo-play::before { content: ''; position: absolute; inset: -4px; border-radius: inherit; z-index: -1;
+            background: conic-gradient(from var(--dp-spin), transparent 0deg, var(--gold-bright) 55deg, var(--gold) 105deg, transparent 190deg, transparent 360deg);
+            filter: blur(11px); opacity: .5; animation: dp-breathe 3.6s ease-in-out infinite; }
         @keyframes dp-spin { to { --dp-spin: 360deg; } }
+        @keyframes dp-breathe { 0%,100% { opacity: .38; } 50% { opacity: .62; } }
         .demo-play svg { width: 14px; height: 14px; }
-        .demo-play:hover { box-shadow: var(--glow-gold-sm); transform: translateY(-2px); filter: brightness(1.15); }
+        .demo-play:hover { transform: translateY(-2px); filter: brightness(1.12); }
+        .demo-play:hover::before { opacity: .72; }
         .demo-play:active { transform: scale(.97); }
+        @media (prefers-reduced-motion: reduce) { .demo-play::before { animation: none; } }
         @media (prefers-reduced-motion: reduce) { .demo-play { animation: none; } }
 
         /* פאנל ימני */
@@ -87,7 +94,11 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
 
         /* לינקים */
         .pg-links-wrap { margin-top: 26px; }
-        .pg-links-intro { font-size: .86rem; color: rgba(255,255,255,0.7); font-weight: 400; margin: 0 0 12px; line-height: 1.6; }
+        .pg-links-intro { font-size: .95rem; color: rgba(255,255,255,0.78); font-weight: 400; margin: 0 0 22px; line-height: 1.75; }
+        /* "נסו בעצמכם" + כפתור הדמו הארוך מתחת ללינקים */
+        .pg-try { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--border); }
+        .pg-try-label { font-size: .8rem; color: var(--gold-light); font-weight: 600; text-align: center; margin: 0 0 12px; letter-spacing: .02em; }
+        .pg-try .demo-play { display: flex; width: 100%; justify-content: center; }
         .pg-links { display: flex; gap: 12px; flex-wrap: wrap; }
         .pg-link { flex: 1; min-width: 150px; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
             text-decoration: none; padding: 13px 18px; border-radius: var(--radius-pill); font-weight: 500; font-size: .92rem;
@@ -122,6 +133,8 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
             .pg-stage { order: -1; gap: 0; }
             .pg-panel { max-width: 460px; margin: 0 auto; width: 100%; align-self: auto; }
             .phone { display: none; }                       /* במובייל בלי מוקאפ - חוסך גלילה מיותרת */
+            .pg-try { margin: 0; padding: 0; border: 0; }    /* הכפתור צף - בלי תווית/מפריד מיותם */
+            .pg-try-label { display: none; }
             .pg-head { align-items: center; text-align: center; }
             .ctrl-group { align-items: center; }
             /* כפתור צף קבוע בתחתית המסך, מעל התוכן */
@@ -194,13 +207,17 @@ $v = @filemtime(__DIR__ . '/assets/demo-screen-gold.jpg') ?: 1;
                         </a>
                     </div>
                 </div>
+
+                <div class="pg-try">
+                    <p class="pg-try-label">נסו בעצמכם</p>
+                    <a class="demo-play" href="/demo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> שחקו עם הדמו</a>
+                </div>
             </aside>
 
             <div class="pg-stage">
                 <div class="phone">
                     <img id="screenImg" class="phone-screen" src="assets/demo-screen-gold.jpg?v=<?= $v ?>" alt="<?= htmlspecialchars(APP_NAME) ?>">
                 </div>
-                <a class="demo-play" href="/demo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> שחקו עם הדמו</a>
             </div>
         </div>
 
