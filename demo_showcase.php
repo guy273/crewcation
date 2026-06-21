@@ -22,22 +22,22 @@ declare(strict_types=1);
         .pg { position: relative; height: 100vh; overflow: hidden; box-sizing: border-box;
             padding: 30px clamp(20px, 5vw, 64px) 24px; display: flex; flex-direction: column; gap: clamp(18px, 2.6vh, 30px); }
         /* בלוב צהוב/אקסנט נע ברקע - מתחלף עם הצבע */
+        /* הילה מטושטשת מאחורי הטלפון (צד שמאל) - תזוזת תאורה עדינה ולא מורגשת */
         .pg::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-            background: radial-gradient(circle 36vw at 72% 8%, rgba(var(--accent-rgb), 0.16), transparent 56%);
-            filter: blur(34px); animation: blob-drift 26s ease-in-out infinite alternate; transition: background .4s ease; }
+            background: radial-gradient(circle 42vw at 27% 56%, rgba(var(--accent-rgb), 0.15), transparent 60%);
+            filter: blur(44px); animation: blob-drift 34s ease-in-out infinite; transition: background .4s ease; }
         .pg > * { position: relative; z-index: 1; }
         @keyframes blob-drift {
-            0%   { transform: translate(0, 0) scale(1); }
-            33%  { transform: translate(-13vw, 11vh) scale(1.1); }
-            66%  { transform: translate(7vw, -5vh) scale(0.95); }
-            100% { transform: translate(-4vw, 9vh) scale(1.05); }
+            0%   { transform: translate(0, 0) scale(1);      opacity: .8; }
+            50%  { transform: translate(2.5vw, -2vh) scale(1.05); opacity: 1; }
+            100% { transform: translate(0, 0) scale(1);      opacity: .8; }
         }
 
         /* כותרת ולוגו - ימין למעלה, מיושר עם הפאנל */
         .pg-head { display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
             max-width: 1240px; width: 100%; margin: 0 auto; }
         .pg-brand { display: flex; align-items: center; gap: 11px; }
-        .pg-crown { width: 38px; height: 38px; filter: drop-shadow(0 0 14px var(--gold-glow)); }
+        .pg-crown { width: 38px; height: 38px; color: var(--gold-bright); filter: drop-shadow(0 0 14px var(--gold-glow)); transition: color .3s ease; }
         .pg-title { font-family: 'Space Grotesk', 'Noto Sans Hebrew', sans-serif; font-size: clamp(1.6rem, 2.8vw, 2.3rem); font-weight: 700; margin: 0; letter-spacing: -1px;
             background: var(--grad-gold-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
         .pg-sub { color: rgba(255,255,255,0.82); font-weight: 400; font-size: clamp(.85rem, 1.2vw, .98rem); margin: 0; }
@@ -136,7 +136,7 @@ declare(strict_types=1);
     <div class="pg">
         <header class="pg-head">
             <div class="pg-brand">
-                <svg class="pg-crown" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--gold-bright)"/><stop offset="0.5" stop-color="var(--gold)"/><stop offset="1" stop-color="var(--primary-dark)"/></linearGradient></defs><path fill="url(#cg)" d="M18 70 L14 34 L32 48 L50 22 L68 48 L86 34 L82 70 Z"/><rect x="18" y="72" width="64" height="9" rx="2" fill="url(#cg)"/><circle cx="14" cy="32" r="5" fill="var(--gold-bright)"/><circle cx="50" cy="20" r="5.5" fill="var(--gold-bright)"/><circle cx="86" cy="32" r="5" fill="var(--gold-bright)"/></svg>
+                <svg class="pg-crown" viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" d="M18 70 L14 34 L32 48 L50 22 L68 48 L86 34 L82 70 Z"/><rect x="18" y="72" width="64" height="9" rx="2" fill="currentColor"/><circle cx="14" cy="32" r="5" fill="currentColor"/><circle cx="50" cy="20" r="5.5" fill="currentColor"/><circle cx="86" cy="32" r="5" fill="currentColor"/></svg>
                 <h1 class="pg-title"><?= htmlspecialchars(APP_NAME) ?></h1>
             </div>
             <p class="pg-sub">אפליקציית טיול חבר'ה - הדגמה חיה. שחקו עם המוצר, החליפו שלב וצבע.</p>
