@@ -77,11 +77,11 @@ $myPhoto = member_photo($user_id);
             <button class="nav-reason" onclick="pickReason(this)">איבדתי את החבר'ה</button>
             <button class="nav-reason" onclick="pickReason(this)">צריך מיטה דחוף</button>
             <button class="nav-reason" onclick="pickReason(this)">סתם, ליתר ביטחון</button>
-            <button class="nav-reason" onclick="pickReason(this)">דוד שלי חביב</button>
-            <button class="nav-reason" onclick="pickReason(this)">על 6 צפון לכפר יסיף</button>
-            <button class="nav-reason" onclick="pickReason(this)">אני דולפין</button>
-            <button class="nav-reason" onclick="pickReason(this)">אירוע רציני</button>
-            <button class="nav-reason" onclick="pickReason(this)">אטצ׳ו (דן מתעטש)</button>
+            <button class="nav-reason" onclick="pickReason(this)">הרגליים הפסיקו לעבוד</button>
+            <button class="nav-reason" onclick="pickReason(this)">מחר עוד יום</button>
+            <button class="nav-reason" onclick="pickReason(this)">נגמרה לי הסוללה</button>
+            <button class="nav-reason" onclick="pickReason(this)">ראיתי מיטה בחלום</button>
+            <button class="nav-reason" onclick="pickReason(this)">הספיק לי להיום</button>
         </div>
         <button class="btn-primary btn-nav-go" id="navGoBtn" disabled onclick="startNav()">
             <span class="bng-main"><?= icon('navigation', 'i') ?> נווט למלון</span>
